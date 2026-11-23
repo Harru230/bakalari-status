@@ -1,0 +1,2703 @@
+{
+  "schemaVersion": 1,
+  "target": "https://bakalari.oegp.cz/login",
+  "timezone": "Europe/Prague",
+  "generatedAt": "2026-11-23T14:11:09.468Z",
+  "historyStartDate": "2026-09-17",
+  "currentStatus": {
+    "status": "offline",
+    "checkedAt": "2026-11-23T14:11:09.461Z",
+    "httpStatus": null,
+    "latencyMs": 12008,
+    "reason": "timeout"
+  },
+  "days": {
+    "2026-09-17": {
+      "date": "2026-09-17",
+      "status": "offline",
+      "checks": 2,
+      "up": 1,
+      "down": 1,
+      "lastCheckedAt": "2026-09-17T20:02:15.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-18": {
+      "date": "2026-09-18",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-09-18T20:31:59.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-19": {
+      "date": "2026-09-19",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-09-19T19:12:30.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-20": {
+      "date": "2026-09-20",
+      "status": "online",
+      "checks": 7,
+      "up": 7,
+      "down": 0,
+      "lastCheckedAt": "2026-09-20T21:12:27.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-21": {
+      "date": "2026-09-21",
+      "status": "online",
+      "checks": 7,
+      "up": 7,
+      "down": 0,
+      "lastCheckedAt": "2026-09-21T20:49:44.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-22": {
+      "date": "2026-09-22",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-09-22T21:49:44.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-23": {
+      "date": "2026-09-23",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-09-23T19:30:17.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-24": {
+      "date": "2026-09-24",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-09-24T18:16:28.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-25": {
+      "date": "2026-09-25",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-09-25T18:16:08.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-26": {
+      "date": "2026-09-26",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-09-26T19:33:19.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-27": {
+      "date": "2026-09-27",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-09-27T21:51:44.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-28": {
+      "date": "2026-09-28",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-09-28T21:37:06.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-29": {
+      "date": "2026-09-29",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-09-29T19:49:06.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-09-30": {
+      "date": "2026-09-30",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-09-30T21:15:38.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-01": {
+      "date": "2026-10-01",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-01T21:35:46.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-02": {
+      "date": "2026-10-02",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-02T20:24:10.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-03": {
+      "date": "2026-10-03",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-03T20:41:12.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-04": {
+      "date": "2026-10-04",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-04T19:15:48.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-05": {
+      "date": "2026-10-05",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-05T18:00:55.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-06": {
+      "date": "2026-10-06",
+      "status": "offline",
+      "checks": 4,
+      "up": 2,
+      "down": 2,
+      "lastCheckedAt": "2026-10-06T19:59:52.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-07": {
+      "date": "2026-10-07",
+      "status": "offline",
+      "checks": 4,
+      "up": 2,
+      "down": 2,
+      "lastCheckedAt": "2026-10-07T18:33:51.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-08": {
+      "date": "2026-10-08",
+      "status": "offline",
+      "checks": 4,
+      "up": 3,
+      "down": 1,
+      "lastCheckedAt": "2026-10-08T18:32:48.000Z",
+      "lastHttpStatus": 503,
+      "lastReason": "non_200",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-09": {
+      "date": "2026-10-09",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-09T18:04:01.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-10": {
+      "date": "2026-10-10",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-10T20:30:14.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-11": {
+      "date": "2026-10-11",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-11T18:39:26.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-12": {
+      "date": "2026-10-12",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-12T20:09:12.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-13": {
+      "date": "2026-10-13",
+      "status": "online",
+      "checks": 3,
+      "up": 3,
+      "down": 0,
+      "lastCheckedAt": "2026-10-13T17:58:49.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-14": {
+      "date": "2026-10-14",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-14T18:21:12.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-15": {
+      "date": "2026-10-15",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-10-15T21:58:24.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-16": {
+      "date": "2026-10-16",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-16T19:23:17.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-17": {
+      "date": "2026-10-17",
+      "status": "offline",
+      "checks": 7,
+      "up": 2,
+      "down": 5,
+      "lastCheckedAt": "2026-10-17T21:17:13.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-18": {
+      "date": "2026-10-18",
+      "status": "offline",
+      "checks": 6,
+      "up": 3,
+      "down": 3,
+      "lastCheckedAt": "2026-10-18T20:12:49.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-19": {
+      "date": "2026-10-19",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-19T19:04:45.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-20": {
+      "date": "2026-10-20",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-20T18:58:45.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-21": {
+      "date": "2026-10-21",
+      "status": "offline",
+      "checks": 5,
+      "up": 3,
+      "down": 2,
+      "lastCheckedAt": "2026-10-21T18:26:27.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-22": {
+      "date": "2026-10-22",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-22T18:21:25.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-23": {
+      "date": "2026-10-23",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-10-23T21:53:14.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-24": {
+      "date": "2026-10-24",
+      "status": "online",
+      "checks": 6,
+      "up": 6,
+      "down": 0,
+      "lastCheckedAt": "2026-10-24T20:22:10.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-25": {
+      "date": "2026-10-25",
+      "status": "online",
+      "checks": 7,
+      "up": 7,
+      "down": 0,
+      "lastCheckedAt": "2026-10-25T21:29:43.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-26": {
+      "date": "2026-10-26",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-26T21:25:15.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-27": {
+      "date": "2026-10-27",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-27T19:51:49.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-28": {
+      "date": "2026-10-28",
+      "status": "offline",
+      "checks": 5,
+      "up": 3,
+      "down": 2,
+      "lastCheckedAt": "2026-10-28T22:28:32.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-29": {
+      "date": "2026-10-29",
+      "status": "offline",
+      "checks": 4,
+      "up": 2,
+      "down": 2,
+      "lastCheckedAt": "2026-10-29T21:35:11.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-30": {
+      "date": "2026-10-30",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-10-30T20:28:08.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-10-31": {
+      "date": "2026-10-31",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-10-31T22:15:16.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-01": {
+      "date": "2026-11-01",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-11-01T20:16:34.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-02": {
+      "date": "2026-11-02",
+      "status": "online",
+      "checks": 3,
+      "up": 3,
+      "down": 0,
+      "lastCheckedAt": "2026-11-02T17:55:17.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-03": {
+      "date": "2026-11-03",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-11-03T21:33:13.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-04": {
+      "date": "2026-11-04",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-11-04T22:28:22.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-05": {
+      "date": "2026-11-05",
+      "status": "offline",
+      "checks": 3,
+      "up": 2,
+      "down": 1,
+      "lastCheckedAt": "2026-11-05T19:43:18.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-06": {
+      "date": "2026-11-06",
+      "status": "offline",
+      "checks": 4,
+      "up": 3,
+      "down": 1,
+      "lastCheckedAt": "2026-11-06T21:19:35.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-07": {
+      "date": "2026-11-07",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-11-07T19:56:38.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-08": {
+      "date": "2026-11-08",
+      "status": "online",
+      "checks": 5,
+      "up": 5,
+      "down": 0,
+      "lastCheckedAt": "2026-11-08T21:46:22.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-09": {
+      "date": "2026-11-09",
+      "status": "offline",
+      "checks": 3,
+      "up": 2,
+      "down": 1,
+      "lastCheckedAt": "2026-11-09T20:28:44.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-10": {
+      "date": "2026-11-10",
+      "status": "offline",
+      "checks": 3,
+      "up": 2,
+      "down": 1,
+      "lastCheckedAt": "2026-11-10T20:17:06.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-11": {
+      "date": "2026-11-11",
+      "status": "online",
+      "checks": 3,
+      "up": 3,
+      "down": 0,
+      "lastCheckedAt": "2026-11-11T16:59:01.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-12": {
+      "date": "2026-11-12",
+      "status": "offline",
+      "checks": 4,
+      "up": 3,
+      "down": 1,
+      "lastCheckedAt": "2026-11-12T22:05:25.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-13": {
+      "date": "2026-11-13",
+      "status": "offline",
+      "checks": 3,
+      "up": 2,
+      "down": 1,
+      "lastCheckedAt": "2026-11-13T19:18:51.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-14": {
+      "date": "2026-11-14",
+      "status": "offline",
+      "checks": 4,
+      "up": 2,
+      "down": 2,
+      "lastCheckedAt": "2026-11-14T19:46:06.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-15": {
+      "date": "2026-11-15",
+      "status": "offline",
+      "checks": 4,
+      "up": 0,
+      "down": 4,
+      "lastCheckedAt": "2026-11-15T19:35:58.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-16": {
+      "date": "2026-11-16",
+      "status": "offline",
+      "checks": 3,
+      "up": 0,
+      "down": 3,
+      "lastCheckedAt": "2026-11-16T15:02:40.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-17": {
+      "date": "2026-11-17",
+      "status": "offline",
+      "checks": 3,
+      "up": 1,
+      "down": 2,
+      "lastCheckedAt": "2026-11-17T17:25:56.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-18": {
+      "date": "2026-11-18",
+      "status": "offline",
+      "checks": 3,
+      "up": 2,
+      "down": 1,
+      "lastCheckedAt": "2026-11-18T17:50:46.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-19": {
+      "date": "2026-11-19",
+      "status": "offline",
+      "checks": 3,
+      "up": 1,
+      "down": 2,
+      "lastCheckedAt": "2026-11-19T17:07:22.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-20": {
+      "date": "2026-11-20",
+      "status": "offline",
+      "checks": 3,
+      "up": 2,
+      "down": 1,
+      "lastCheckedAt": "2026-11-20T17:35:44.000Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-21": {
+      "date": "2026-11-21",
+      "status": "offline",
+      "checks": 4,
+      "up": 3,
+      "down": 1,
+      "lastCheckedAt": "2026-11-21T20:47:26.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-22": {
+      "date": "2026-11-22",
+      "status": "online",
+      "checks": 4,
+      "up": 4,
+      "down": 0,
+      "lastCheckedAt": "2026-11-22T22:18:47.000Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "historical"
+      ]
+    },
+    "2026-11-23": {
+      "date": "2026-11-23",
+      "status": "offline",
+      "checks": 3,
+      "up": 2,
+      "down": 1,
+      "lastCheckedAt": "2026-11-23T14:11:09.461Z",
+      "lastHttpStatus": null,
+      "lastReason": "timeout",
+      "sources": [
+        "historical",
+        "probe"
+      ]
+    }
+  },
+  "recentChecks": [
+    {
+      "timestamp": "2026-11-23T14:11:09.461Z",
+      "date": "2026-11-23",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": 12008,
+      "reason": "timeout",
+      "source": "probe"
+    },
+    {
+      "timestamp": "2026-11-23T10:36:03.000Z",
+      "date": "2026-11-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-23T03:32:39.000Z",
+      "date": "2026-11-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-22T22:18:47.000Z",
+      "date": "2026-11-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-22T16:01:22.000Z",
+      "date": "2026-11-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-22T07:55:44.000Z",
+      "date": "2026-11-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-22T00:59:10.000Z",
+      "date": "2026-11-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-21T20:47:26.000Z",
+      "date": "2026-11-21",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-21T14:27:31.000Z",
+      "date": "2026-11-21",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-21T05:56:37.000Z",
+      "date": "2026-11-21",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-20T23:44:21.000Z",
+      "date": "2026-11-21",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-20T17:35:44.000Z",
+      "date": "2026-11-20",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-20T08:08:28.000Z",
+      "date": "2026-11-20",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-20T00:21:30.000Z",
+      "date": "2026-11-20",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-19T17:07:22.000Z",
+      "date": "2026-11-19",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-19T07:07:51.000Z",
+      "date": "2026-11-19",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-18T23:57:52.000Z",
+      "date": "2026-11-19",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-18T17:50:46.000Z",
+      "date": "2026-11-18",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-18T08:16:17.000Z",
+      "date": "2026-11-18",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-18T00:39:08.000Z",
+      "date": "2026-11-18",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-17T17:25:56.000Z",
+      "date": "2026-11-17",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-17T07:44:11.000Z",
+      "date": "2026-11-17",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-16T23:59:45.000Z",
+      "date": "2026-11-17",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-16T15:02:40.000Z",
+      "date": "2026-11-16",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-16T05:12:44.000Z",
+      "date": "2026-11-16",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-15T23:48:35.000Z",
+      "date": "2026-11-16",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-15T19:35:58.000Z",
+      "date": "2026-11-15",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-15T13:34:24.000Z",
+      "date": "2026-11-15",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-15T05:14:50.000Z",
+      "date": "2026-11-15",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-14T23:41:23.000Z",
+      "date": "2026-11-15",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-14T19:46:06.000Z",
+      "date": "2026-11-14",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-14T14:49:50.000Z",
+      "date": "2026-11-14",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-14T07:25:18.000Z",
+      "date": "2026-11-14",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-14T00:43:30.000Z",
+      "date": "2026-11-14",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-13T19:18:51.000Z",
+      "date": "2026-11-13",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-13T11:55:03.000Z",
+      "date": "2026-11-13",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-13T03:11:55.000Z",
+      "date": "2026-11-13",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-12T22:05:25.000Z",
+      "date": "2026-11-12",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-12T15:48:58.000Z",
+      "date": "2026-11-12",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-12T06:06:29.000Z",
+      "date": "2026-11-12",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-11T23:24:28.000Z",
+      "date": "2026-11-12",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-11T16:59:01.000Z",
+      "date": "2026-11-11",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-11T08:56:34.000Z",
+      "date": "2026-11-11",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-11T01:04:00.000Z",
+      "date": "2026-11-11",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-10T20:17:06.000Z",
+      "date": "2026-11-10",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-10T12:13:59.000Z",
+      "date": "2026-11-10",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-10T03:14:06.000Z",
+      "date": "2026-11-10",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-09T20:28:44.000Z",
+      "date": "2026-11-09",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-09T09:17:25.000Z",
+      "date": "2026-11-09",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-09T01:28:44.000Z",
+      "date": "2026-11-09",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-08T21:46:22.000Z",
+      "date": "2026-11-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-08T17:42:08.000Z",
+      "date": "2026-11-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-08T11:44:45.000Z",
+      "date": "2026-11-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-08T04:53:01.000Z",
+      "date": "2026-11-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-07T23:32:18.000Z",
+      "date": "2026-11-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-07T19:56:38.000Z",
+      "date": "2026-11-07",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-07T15:29:07.000Z",
+      "date": "2026-11-07",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-07T08:26:56.000Z",
+      "date": "2026-11-07",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-07T01:40:37.000Z",
+      "date": "2026-11-07",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-06T21:19:35.000Z",
+      "date": "2026-11-06",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-06T15:43:14.000Z",
+      "date": "2026-11-06",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-06T07:43:25.000Z",
+      "date": "2026-11-06",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-06T00:49:51.000Z",
+      "date": "2026-11-06",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-05T19:43:18.000Z",
+      "date": "2026-11-05",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-05T11:56:18.000Z",
+      "date": "2026-11-05",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-05T03:15:42.000Z",
+      "date": "2026-11-05",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-04T22:28:22.000Z",
+      "date": "2026-11-04",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-04T16:54:33.000Z",
+      "date": "2026-11-04",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-04T08:50:29.000Z",
+      "date": "2026-11-04",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-04T01:56:28.000Z",
+      "date": "2026-11-04",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-03T21:33:13.000Z",
+      "date": "2026-11-03",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-03T15:53:51.000Z",
+      "date": "2026-11-03",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-03T07:38:49.000Z",
+      "date": "2026-11-03",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-03T00:41:07.000Z",
+      "date": "2026-11-03",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-02T17:55:17.000Z",
+      "date": "2026-11-02",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-02T07:21:36.000Z",
+      "date": "2026-11-02",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-02T00:21:01.000Z",
+      "date": "2026-11-02",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-01T20:16:34.000Z",
+      "date": "2026-11-01",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-01T15:50:35.000Z",
+      "date": "2026-11-01",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-01T09:52:16.000Z",
+      "date": "2026-11-01",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-11-01T01:55:23.000Z",
+      "date": "2026-11-01",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-31T22:15:16.000Z",
+      "date": "2026-10-31",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-31T18:15:59.000Z",
+      "date": "2026-10-31",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-31T13:23:23.000Z",
+      "date": "2026-10-31",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-31T06:42:22.000Z",
+      "date": "2026-10-31",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-31T00:28:24.000Z",
+      "date": "2026-10-31",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-30T20:28:08.000Z",
+      "date": "2026-10-30",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-30T15:37:47.000Z",
+      "date": "2026-10-30",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-30T08:11:04.000Z",
+      "date": "2026-10-30",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-30T01:37:30.000Z",
+      "date": "2026-10-30",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-29T21:35:11.000Z",
+      "date": "2026-10-29",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-29T16:40:42.000Z",
+      "date": "2026-10-29",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-29T09:29:49.000Z",
+      "date": "2026-10-29",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-29T02:10:29.000Z",
+      "date": "2026-10-29",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-28T22:28:32.000Z",
+      "date": "2026-10-28",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-28T17:58:26.000Z",
+      "date": "2026-10-28",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-28T11:01:50.000Z",
+      "date": "2026-10-28",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-28T04:28:13.000Z",
+      "date": "2026-10-28",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-27T23:34:21.000Z",
+      "date": "2026-10-28",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-27T19:51:49.000Z",
+      "date": "2026-10-27",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-27T14:04:07.000Z",
+      "date": "2026-10-27",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-27T07:25:08.000Z",
+      "date": "2026-10-27",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-27T01:13:41.000Z",
+      "date": "2026-10-27",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-26T21:25:15.000Z",
+      "date": "2026-10-26",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-26T16:34:35.000Z",
+      "date": "2026-10-26",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-26T09:49:24.000Z",
+      "date": "2026-10-26",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-26T03:38:03.000Z",
+      "date": "2026-10-26",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-25T23:53:04.000Z",
+      "date": "2026-10-26",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-25T21:29:43.000Z",
+      "date": "2026-10-25",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-25T18:12:16.000Z",
+      "date": "2026-10-25",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-25T14:52:31.000Z",
+      "date": "2026-10-25",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-25T10:53:55.000Z",
+      "date": "2026-10-25",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-25T05:47:47.000Z",
+      "date": "2026-10-25",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-25T00:55:31.000Z",
+      "date": "2026-10-25",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-24T22:56:20.000Z",
+      "date": "2026-10-25",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-24T20:22:10.000Z",
+      "date": "2026-10-24",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-24T17:54:17.000Z",
+      "date": "2026-10-24",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-24T14:17:45.000Z",
+      "date": "2026-10-24",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-24T10:26:09.000Z",
+      "date": "2026-10-24",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-24T05:27:24.000Z",
+      "date": "2026-10-24",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-24T00:19:25.000Z",
+      "date": "2026-10-24",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-23T21:53:14.000Z",
+      "date": "2026-10-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-23T18:07:51.000Z",
+      "date": "2026-10-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-23T13:08:40.000Z",
+      "date": "2026-10-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-23T07:04:25.000Z",
+      "date": "2026-10-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-23T01:16:48.000Z",
+      "date": "2026-10-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-22T22:09:18.000Z",
+      "date": "2026-10-23",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-22T18:21:25.000Z",
+      "date": "2026-10-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-22T13:32:30.000Z",
+      "date": "2026-10-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-22T07:12:58.000Z",
+      "date": "2026-10-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-22T01:17:40.000Z",
+      "date": "2026-10-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-21T22:09:19.000Z",
+      "date": "2026-10-22",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-21T18:26:27.000Z",
+      "date": "2026-10-21",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-21T13:31:13.000Z",
+      "date": "2026-10-21",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-21T07:10:35.000Z",
+      "date": "2026-10-21",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-21T01:21:01.000Z",
+      "date": "2026-10-21",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-20T22:13:16.000Z",
+      "date": "2026-10-21",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-20T18:58:45.000Z",
+      "date": "2026-10-20",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-20T14:44:53.000Z",
+      "date": "2026-10-20",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-20T09:13:20.000Z",
+      "date": "2026-10-20",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-20T03:48:29.000Z",
+      "date": "2026-10-20",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-19T23:22:47.000Z",
+      "date": "2026-10-20",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-19T19:04:45.000Z",
+      "date": "2026-10-19",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-19T12:23:49.000Z",
+      "date": "2026-10-19",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-19T05:48:44.000Z",
+      "date": "2026-10-19",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-19T00:53:01.000Z",
+      "date": "2026-10-19",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-18T22:49:28.000Z",
+      "date": "2026-10-19",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-18T20:12:49.000Z",
+      "date": "2026-10-18",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-18T17:06:35.000Z",
+      "date": "2026-10-18",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-18T13:01:29.000Z",
+      "date": "2026-10-18",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-18T08:37:44.000Z",
+      "date": "2026-10-18",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-18T03:26:15.000Z",
+      "date": "2026-10-18",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-17T23:48:23.000Z",
+      "date": "2026-10-18",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-17T21:17:13.000Z",
+      "date": "2026-10-17",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-17T18:13:39.000Z",
+      "date": "2026-10-17",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-17T15:07:02.000Z",
+      "date": "2026-10-17",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-17T11:26:21.000Z",
+      "date": "2026-10-17",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-17T06:39:58.000Z",
+      "date": "2026-10-17",
+      "status": "offline",
+      "httpStatus": null,
+      "latencyMs": null,
+      "reason": "timeout",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-17T01:07:24.000Z",
+      "date": "2026-10-17",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-16T22:36:58.000Z",
+      "date": "2026-10-17",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-16T19:23:17.000Z",
+      "date": "2026-10-16",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-16T15:15:47.000Z",
+      "date": "2026-10-16",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-16T10:53:04.000Z",
+      "date": "2026-10-16",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-16T05:32:05.000Z",
+      "date": "2026-10-16",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-16T00:15:13.000Z",
+      "date": "2026-10-16",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-15T21:58:24.000Z",
+      "date": "2026-10-15",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-15T18:03:32.000Z",
+      "date": "2026-10-15",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-15T13:08:08.000Z",
+      "date": "2026-10-15",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-15T07:04:06.000Z",
+      "date": "2026-10-15",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-15T01:15:27.000Z",
+      "date": "2026-10-15",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-14T22:05:26.000Z",
+      "date": "2026-10-15",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-14T18:21:12.000Z",
+      "date": "2026-10-14",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-14T13:22:22.000Z",
+      "date": "2026-10-14",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-14T07:12:25.000Z",
+      "date": "2026-10-14",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-14T01:39:04.000Z",
+      "date": "2026-10-14",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-13T22:35:31.000Z",
+      "date": "2026-10-14",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-13T17:58:49.000Z",
+      "date": "2026-10-13",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-13T10:12:25.000Z",
+      "date": "2026-10-13",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-13T02:27:18.000Z",
+      "date": "2026-10-13",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-12T20:09:12.000Z",
+      "date": "2026-10-12",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-12T10:22:12.000Z",
+      "date": "2026-10-12",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-12T02:07:40.000Z",
+      "date": "2026-10-12",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-11T22:42:26.000Z",
+      "date": "2026-10-12",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-11T18:39:26.000Z",
+      "date": "2026-10-11",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-11T13:49:23.000Z",
+      "date": "2026-10-11",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-11T06:52:13.000Z",
+      "date": "2026-10-11",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-11T00:07:52.000Z",
+      "date": "2026-10-11",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-10T20:30:14.000Z",
+      "date": "2026-10-10",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-10T16:11:18.000Z",
+      "date": "2026-10-10",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-10T10:59:03.000Z",
+      "date": "2026-10-10",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-10T04:45:20.000Z",
+      "date": "2026-10-10",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-09T23:04:17.000Z",
+      "date": "2026-10-10",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-09T18:04:01.000Z",
+      "date": "2026-10-09",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-09T11:48:18.000Z",
+      "date": "2026-10-09",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-09T04:59:41.000Z",
+      "date": "2026-10-09",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-08T23:40:02.000Z",
+      "date": "2026-10-09",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-08T18:32:48.000Z",
+      "date": "2026-10-08",
+      "status": "offline",
+      "httpStatus": 503,
+      "latencyMs": null,
+      "reason": "non_200",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-08T11:52:56.000Z",
+      "date": "2026-10-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-08T04:56:42.000Z",
+      "date": "2026-10-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    },
+    {
+      "timestamp": "2026-10-07T23:28:40.000Z",
+      "date": "2026-10-08",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": null,
+      "reason": "ok",
+      "source": "historical"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "bakalari-status",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Public status monitor and monthly uptime calendar for https://bakalari.oegp.cz/login.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/unit/*.test.mjs",
+    "probe": "node scripts/probe.mjs",
+    "backfill": "node scripts/backfill.mjs"
+  }
+}

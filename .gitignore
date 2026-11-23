@@ -1,0 +1,29 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Environment and local secrets
+.env
+.env.*
+*.pem
+*.key
+*credentials*.json
+*service-account*.json
+
+# OS and editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs, coverage and test artifacts
+*.log
+npm-debug.log*
+coverage/
+playwright-report/
+test-results/
+
+# Temporary files and local agent metadata
+tmp/
+*.tmp
+.agents
