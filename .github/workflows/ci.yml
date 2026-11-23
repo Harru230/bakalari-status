@@ -1,0 +1,53 @@
+name: CI Verification
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Run privacy and secret scan
+        run: npm run test:privacy -- --require-dist
+
+      - name: Configure repo-local git identity for E2E hygiene tests
+        if: hashFiles('tests/e2e/*.spec.mjs') != ''
+        run: |
+          git config --local user.name "Harru230"
+          git config --local user.email "212044046+Harru230@users.noreply.github.com"
+
+      - name: Install Playwright Chromium
+        if: hashFiles('tests/e2e/*.spec.mjs') != ''
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright E2E suite
+        if: hashFiles('tests/e2e/*.spec.mjs') != ''
+        run: npm run test:e2e
