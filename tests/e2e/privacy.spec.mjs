@@ -432,7 +432,11 @@ test.describe('F1, F10, F11, F12: Privacy, Git Hygiene, CI/CD & Live Deployment'
     page.on('request', (req) => {
       try {
         const u = new URL(req.url());
-        if (u.hostname === '127.0.0.1' || u.hostname === 'localhost') {
+        if (
+          u.hostname === '127.0.0.1' ||
+          u.hostname === 'localhost' ||
+          u.hostname.endsWith('.github.io')
+        ) {
           requestedPaths.push(u.pathname);
         }
       } catch {
