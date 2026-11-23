@@ -116,21 +116,44 @@ body {
   padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+}
+
+.month-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 6px;
+}
+
+.month-tab {
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+}
+
+.month-tab:hover {
+  border-color: var(--border-strong);
+  color: var(--ink);
+}
+
+.month-tab[aria-pressed="true"] {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+  font-weight: 600;
 }
 
 .month-bar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.month-title-wrap {
-  display: flex;
   flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+  gap: 6px;
 }
 
 .month-title {
@@ -140,39 +163,47 @@ body {
   letter-spacing: -0.015em;
 }
 
+.month-pct-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.pct-up {
+  color: var(--ok-ink);
+}
+
+.pct-down {
+  color: var(--err-ink);
+}
+
+.month-meter {
+  display: flex;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: var(--border);
+}
+
+.month-meter-up {
+  background-color: var(--ok-border);
+  height: 100%;
+}
+
+.month-meter-down {
+  background-color: var(--err-border);
+  height: 100%;
+}
+
 .month-counts {
   font-size: 0.75rem;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
-}
-
-.month-nav {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex: none;
-}
-
-.nav-btn {
-  min-height: 36px;
-  padding: 0 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background-color: var(--surface);
-  color: var(--ink);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.nav-btn:hover:not(:disabled) {
-  background-color: var(--bg);
-  border-color: var(--border-strong);
-}
-
-.nav-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 
 .weekdays,

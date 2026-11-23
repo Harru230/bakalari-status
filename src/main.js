@@ -2,14 +2,15 @@ import './styles/main.css';
 import bundledStatus from '../data/status.json';
 import { formatPragueDateTime } from './lib/timezone.mjs';
 import {
+  MONTH_NAMES,
   WEEKDAY_LABELS,
+  addMonths,
   buildMonthGrid,
   clampMonth,
+  compareMonths,
   formatEnglishDate,
-  formatMonthHeading,
   getCalendarBounds,
   pickInitialSelectedDate,
-  stepMonth,
 } from './lib/calendar.mjs';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -55,6 +56,16 @@ function createIcon(status, className = 'icon') {
 
 function isValidDoc(doc) {
   return Boolean(doc && typeof doc === 'object' && doc.days && typeof doc.days === 'object');
+}
+
+function listAvailableMonths(bounds) {
+  const months = [];
+  let cursor = { year: bounds.minMonth.year, month: bounds.minMonth.month };
+  while (compareMonths(cursor, bounds.maxMonth) <= 0) {
+    months.push(cursor);
+    cursor = addMonths(cursor, 1);
+  }
+  return months;
 }
 
 function renderStatusHeader(doc) {
@@ -121,42 +132,60 @@ function renderCalendar() {
 
   calendarRoot.replaceChildren();
 
+  // Month selector tabs (September, October, November, ...)
+  const availableMonths = listAvailableMonths(bounds);
+  const multiYear = bounds.minMonth.year !== bounds.maxMonth.year;
+  const monthTabs = el('nav', 'month-tabs');
+  monthTabs.setAttribute('aria-label', 'Select month');
+
+  for (const m of availableMonths) {
+    const isActive = m.year === state.viewMonth.year && m.month === state.viewMonth.month;
+    const label = multiYear
+      ? `${MONTH_NAMES[m.month - 1]} ${String(m.year).slice(-2)}`
+      : MONTH_NAMES[m.month - 1];
+    const tabBtn = el('button', 'month-tab', label);
+    tabBtn.type = 'button';
+    tabBtn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    tabBtn.setAttribute('data-month', `${m.year}-${String(m.month).padStart(2, '0')}`);
+    tabBtn.addEventListener('click', () => {
+      if (isActive) return;
+      state.viewMonth = { year: m.year, month: m.month };
+      const nextGrid = buildMonthGrid({ ...state.viewMonth, statusDoc: doc, now });
+      state.selectedDate = pickInitialSelectedDate(nextGrid, bounds.todayKey);
+      renderCalendar();
+    });
+    monthTabs.appendChild(tabBtn);
+  }
+  calendarRoot.appendChild(monthTabs);
+
+  // Month title + Uptime% / Downtime%
   const bar = el('div', 'month-bar');
-  const titleWrap = el('div', 'month-title-wrap');
   const heading = el('h2', 'month-title', grid.heading);
   heading.id = 'calendar-heading';
-  titleWrap.appendChild(heading);
+  bar.appendChild(heading);
 
   if (grid.summary.monitoredDays > 0) {
-    titleWrap.appendChild(
-      el(
-        'span',
-        'month-counts',
-        `${grid.summary.onlineDays} up, ${grid.summary.offlineDays} down`,
-      ),
-    );
+    const upPct = Math.round((grid.summary.onlineDays / grid.summary.monitoredDays) * 100);
+    const downPct = 100 - upPct;
+
+    const pctRow = el('div', 'month-pct-row');
+    const upSpan = el('span', 'pct-up', `${upPct}% uptime (${grid.summary.onlineDays}d)`);
+    const downSpan = el('span', 'pct-down', `${downPct}% downtime (${grid.summary.offlineDays}d)`);
+    pctRow.append(upSpan, downSpan);
+    bar.appendChild(pctRow);
+
+    const meter = el('div', 'month-meter');
+    meter.setAttribute('aria-hidden', 'true');
+    const meterUp = el('div', 'month-meter-up');
+    meterUp.style.width = `${upPct}%`;
+    const meterDown = el('div', 'month-meter-down');
+    meterDown.style.width = `${downPct}%`;
+    meter.append(meterUp, meterDown);
+    bar.appendChild(meter);
+  } else {
+    bar.appendChild(el('span', 'month-counts', 'No monitored days'));
   }
 
-  const nav = el('div', 'month-nav');
-  const prevBtn = el('button', 'nav-btn', 'Prev');
-  prevBtn.type = 'button';
-  prevBtn.id = 'nav-prev';
-  prevBtn.disabled = !grid.canPrev;
-  prevBtn.setAttribute('aria-label', 'Previous month');
-
-  const todayBtn = el('button', 'nav-btn', 'Today');
-  todayBtn.type = 'button';
-  todayBtn.id = 'nav-today';
-  todayBtn.setAttribute('aria-label', 'Current month');
-
-  const nextBtn = el('button', 'nav-btn', 'Next');
-  nextBtn.type = 'button';
-  nextBtn.id = 'nav-next';
-  nextBtn.disabled = !grid.canNext;
-  nextBtn.setAttribute('aria-label', 'Next month');
-
-  nav.append(prevBtn, todayBtn, nextBtn);
-  bar.append(titleWrap, nav);
   calendarRoot.appendChild(bar);
 
   const weekdays = el('div', 'weekdays');
@@ -223,33 +252,6 @@ function renderCalendar() {
   const selectedCell = grid.days.find((d) => d.dateKey === state.selectedDate) || grid.days[0];
   dayLineEl.textContent = buildDayLine(selectedCell);
   calendarRoot.appendChild(dayLineEl);
-
-  prevBtn.addEventListener('click', () => {
-    if (!grid.canPrev) return;
-    const prev = stepMonth(state.viewMonth, -1, bounds);
-    state.viewMonth = { year: prev.year, month: prev.month };
-    const nextGrid = buildMonthGrid({ ...state.viewMonth, statusDoc: doc, now });
-    state.selectedDate = pickInitialSelectedDate(nextGrid, bounds.todayKey);
-    renderCalendar();
-  });
-
-  nextBtn.addEventListener('click', () => {
-    if (!grid.canNext) return;
-    const next = stepMonth(state.viewMonth, 1, bounds);
-    state.viewMonth = { year: next.year, month: next.month };
-    const nextGrid = buildMonthGrid({ ...state.viewMonth, statusDoc: doc, now });
-    state.selectedDate = pickInitialSelectedDate(nextGrid, bounds.todayKey);
-    renderCalendar();
-  });
-
-  todayBtn.addEventListener('click', () => {
-    const freshNow = new Date();
-    const freshBounds = getCalendarBounds(doc, freshNow);
-    state.viewMonth = clampMonth(freshBounds.todayMonth, freshBounds);
-    const todayGrid = buildMonthGrid({ ...state.viewMonth, statusDoc: doc, now: freshNow });
-    state.selectedDate = pickInitialSelectedDate(todayGrid, freshBounds.todayKey);
-    renderCalendar();
-  });
 }
 
 function applyDoc(doc) {
