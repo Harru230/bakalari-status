@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Minimal Bakalari Status Calendar', () => {
-  test('renders status header, month tabs, uptime/downtime percentages, and calendar grid without overflow', async ({ page }) => {
+test.describe('Bakalari Status Calendar & Day Details', () => {
+  test('renders status banner, month tabs, uptime/downtime percentages, calendar, and day details without overflow', async ({ page }) => {
     const errors = [];
     page.on('pageerror', (err) => errors.push(err.message));
     page.on('console', (msg) => {
@@ -10,28 +10,27 @@ test.describe('Minimal Bakalari Status Calendar', () => {
 
     await page.goto('./');
     await expect(page.locator('h1')).toHaveText('Is Bakaláři down?');
-    await expect(page.locator('.status-pill')).toBeVisible();
+    await expect(page.locator('.status-banner')).toBeVisible();
     await expect(page.locator('#calendar-heading')).toBeVisible();
     await expect(page.locator('.pct-up')).toContainText('% uptime');
     await expect(page.locator('.pct-down')).toContainText('% downtime');
+    await expect(page.locator('.detail-panel')).toBeVisible();
 
-    const dayCells = page.locator('.day-cell');
+    const dayCells = page.locator('.day-btn');
     expect(await dayCells.count()).toBeGreaterThanOrEqual(28);
 
-    // Click a monitored day and verify the single-line summary updates
-    const firstMonitored = page.locator('.day-cell[data-status="online"], .day-cell[data-status="offline"]').first();
+    // Click a monitored day and verify the Day details panel updates
+    const firstMonitored = page.locator('.day-btn[data-status="online"], .day-btn[data-status="offline"]').first();
     await firstMonitored.click();
     await expect(page.locator('#day-detail-live')).toContainText(/Online|Offline/);
 
-    // Switch months directly via month tabs (e.g. September, October, November)
+    // Switch months directly via month tabs (September, October, November)
     const tabs = page.locator('.month-tab');
     expect(await tabs.count()).toBeGreaterThanOrEqual(2);
-    const firstTab = tabs.first();
-    const lastTab = tabs.last();
-    await firstTab.click();
-    await expect(firstTab).toHaveAttribute('aria-pressed', 'true');
-    await lastTab.click();
-    await expect(lastTab).toHaveAttribute('aria-pressed', 'true');
+    await tabs.first().click();
+    await expect(tabs.first()).toHaveAttribute('aria-pressed', 'true');
+    await tabs.last().click();
+    await expect(tabs.last()).toHaveAttribute('aria-pressed', 'true');
 
     // Verify zero horizontal overflow
     const overflow = await page.evaluate(() => {

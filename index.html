@@ -3,26 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Is Bakaláři down? Daily online/offline calendar for bakalari.oegp.cz." />
+    <meta name="description" content="Uptime monitor and daily status history for bakalari.oegp.cz." />
     <title>Is Bakaláři down?</title>
     <link rel="icon" href="data:," />
   </head>
   <body>
-    <main id="main-content" class="page">
-      <header class="header">
-        <h1 class="title">Is Bakaláři down?</h1>
-        <div id="live-status" class="live-status" role="status" aria-live="polite">
-          Checking status...
-        </div>
-      </header>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">Is Bakaláři down?</h1>
+        <p class="site-subtitle">Uptime monitor for bakalari.oegp.cz</p>
+      </div>
+    </header>
 
-      <section id="calendar-root" class="calendar-card" aria-label="Monthly status calendar"></section>
+    <main id="main-content" class="container site-main"></main>
 
-      <footer class="footer">
-        <span>bakalari.oegp.cz/login</span>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span class="footer-note">bakalari.oegp.cz/login</span>
         <a href="https://github.com/Harru230/bakalari-status" rel="noopener noreferrer">GitHub</a>
-      </footer>
-    </main>
+      </div>
+    </footer>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
