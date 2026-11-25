@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Bakalari Status Calendar & Day Details', () => {
-  test('renders status banner, month tabs, uptime/downtime percentages, calendar, and day details without overflow', async ({ page }) => {
+test.describe('Bakalari Status Calendar & Timetable', () => {
+  test('renders status page and navigates to 1:1 timetable with week tabs and lesson details without overflow', async ({ page }) => {
     const errors = [];
     page.on('pageerror', (err) => errors.push(err.message));
     page.on('console', (msg) => {
@@ -24,7 +24,7 @@ test.describe('Bakalari Status Calendar & Day Details', () => {
     await firstMonitored.click();
     await expect(page.locator('#day-detail-live')).toContainText(/Online|Offline/);
 
-    // Switch months directly via month tabs (September, October, November)
+    // Switch months directly via month tabs
     const tabs = page.locator('.month-tab');
     expect(await tabs.count()).toBeGreaterThanOrEqual(2);
     await tabs.first().click();
@@ -32,11 +32,36 @@ test.describe('Bakalari Status Calendar & Day Details', () => {
     await tabs.last().click();
     await expect(tabs.last()).toHaveAttribute('aria-pressed', 'true');
 
-    // Verify zero horizontal overflow
-    const overflow = await page.evaluate(() => {
+    // Verify zero horizontal overflow on status page
+    const statusOverflow = await page.evaluate(() => {
       return document.documentElement.scrollWidth > document.documentElement.clientWidth;
     });
-    expect(overflow).toBe(false);
+    expect(statusOverflow).toBe(false);
+
+    // Click Timetable button and verify /timetable/ page
+    await page.locator('a.header-btn', { hasText: 'Timetable' }).click();
+    await expect(page).toHaveURL(/\/timetable\/?$/);
+    await expect(page.locator('h1')).toHaveText('Timetable');
+    await expect(page.locator('.tt-table')).toBeVisible();
+
+    // Switch between Last week, Next week, This week
+    await page.locator('.tt-week-tab[data-week="last"]').click();
+    await expect(page.locator('.tt-week-tab[data-week="last"]')).toHaveAttribute('aria-pressed', 'true');
+    await page.locator('.tt-week-tab[data-week="next"]').click();
+    await expect(page.locator('.tt-week-tab[data-week="next"]')).toHaveAttribute('aria-pressed', 'true');
+    await page.locator('.tt-week-tab[data-week="current"]').click();
+    await expect(page.locator('.tt-week-tab[data-week="current"]')).toHaveAttribute('aria-pressed', 'true');
+
+    // Click a lesson cell and check details card updates
+    const firstLesson = page.locator('.tt-atom').first();
+    await firstLesson.click();
+    await expect(page.locator('.tt-detail-title')).toBeVisible();
+
+    // Verify zero page-level horizontal overflow on timetable page
+    const ttOverflow = await page.evaluate(() => {
+      return document.documentElement.scrollWidth > document.documentElement.clientWidth;
+    });
+    expect(ttOverflow).toBe(false);
     expect(errors).toEqual([]);
   });
 });

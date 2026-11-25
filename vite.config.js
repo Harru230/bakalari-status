@@ -5,48 +5,64 @@ import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 
 const ROOT_DIR = path.dirname(fileURLToPath(import.meta.url));
-const STATUS_JSON_PATH = path.join(ROOT_DIR, 'data', 'status.json');
+const DATA_FILES = ['status.json', 'timetable.json'];
 const BASE_PATH = '/';
 
-function statusDataPlugin() {
+function dataAssetsPlugin() {
   return {
-    name: 'bakalari-status-data',
+    name: 'bakalari-data-assets',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const reqPath = (req.url || '').split('?')[0];
-        if (reqPath === '/data/status.json' && req.method === 'GET') {
-          try {
-            const payload = fs.readFileSync(STATUS_JSON_PATH, 'utf8');
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json; charset=utf-8');
-            res.setHeader('Cache-Control', 'no-store');
-            res.end(payload);
-          } catch {
-            res.statusCode = 404;
-            res.end('status.json not found');
+        if (req.method === 'GET') {
+          for (const name of DATA_FILES) {
+            if (reqPath === `/data/${name}`) {
+              const filePath = path.join(ROOT_DIR, 'data', name);
+              try {
+                const payload = fs.readFileSync(filePath, 'utf8');
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json; charset=utf-8');
+                res.setHeader('Cache-Control', 'no-store');
+                res.end(payload);
+              } catch {
+                res.statusCode = 404;
+                res.end(`${name} not found`);
+              }
+              return;
+            }
           }
-          return;
         }
         next();
       });
     },
     generateBundle() {
-      const source = fs.readFileSync(STATUS_JSON_PATH, 'utf8');
-      this.emitFile({
-        type: 'asset',
-        fileName: 'data/status.json',
-        source,
-      });
+      for (const name of DATA_FILES) {
+        const filePath = path.join(ROOT_DIR, 'data', name);
+        if (fs.existsSync(filePath)) {
+          const source = fs.readFileSync(filePath, 'utf8');
+          this.emitFile({
+            type: 'asset',
+            fileName: `data/${name}`,
+            source,
+          });
+        }
+      }
     },
   };
 }
 
 export default defineConfig({
   base: BASE_PATH,
-  plugins: [tailwindcss(), statusDataPlugin()],
+  plugins: [tailwindcss(), dataAssetsPlugin()],
   build: {
     outDir: 'dist',
     emptyOutDir: true,
     sourcemap: false,
+    rollupOptions: {
+      input: {
+        main: path.resolve(ROOT_DIR, 'index.html'),
+        timetable: path.resolve(ROOT_DIR, 'timetable/index.html'),
+      },
+    },
   },
 });

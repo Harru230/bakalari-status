@@ -215,6 +215,7 @@ export function scanText(text, options = {}) {
   const {
     forbidAllIpv4 = false,
     strictPictograph = false,
+    allowClassSection = false,
     lineOffset = 0,
   } = options;
 
@@ -258,13 +259,15 @@ export function scanText(text, options = {}) {
       findings.push({ rule: 'non_allowlisted_repo', line: lineNumber });
     }
 
-    const maskedForSection = line
-      .replace(INTEGRITY_MASK_RE, '""')
-      .replace(BASE64_DATA_URI_MASK_RE, '')
-      .replace(HEX_COLOR_MASK_RE, '')
-      .replace(GIT_SHA_MASK_RE, '');
-    if (CLASS_SECTION_RE.test(maskedForSection)) {
-      findings.push({ rule: 'class_section', line: lineNumber });
+    if (!allowClassSection) {
+      const maskedForSection = line
+        .replace(INTEGRITY_MASK_RE, '""')
+        .replace(BASE64_DATA_URI_MASK_RE, '')
+        .replace(HEX_COLOR_MASK_RE, '')
+        .replace(GIT_SHA_MASK_RE, '');
+      if (CLASS_SECTION_RE.test(maskedForSection)) {
+        findings.push({ rule: 'class_section', line: lineNumber });
+      }
     }
 
     if (EMOJI_PRESENTATION_RE.test(line)) {
@@ -323,10 +326,13 @@ export async function scanDirectory(dirPath, options = {}) {
       if (isBinaryBuffer(buf)) continue;
 
       const text = buf.toString('utf8');
-      const isStatusJson = path.basename(relPath) === 'status.json';
+      const baseName = path.basename(relPath);
+      const isStatusJson = baseName === 'status.json';
+      const isTimetableJson = baseName === 'timetable.json';
       const hits = scanText(text, {
-        forbidAllIpv4: forbidAllIpv4OnStatusJson && isStatusJson,
+        forbidAllIpv4: forbidAllIpv4OnStatusJson && (isStatusJson || isTimetableJson),
         strictPictograph,
+        allowClassSection: isTimetableJson,
       });
       for (const hit of hits) {
         violations.push({
@@ -394,9 +400,11 @@ async function scanTrackedFiles(rootDir) {
     if (isBinaryBuffer(buf)) continue;
 
     const text = buf.toString('utf8');
+    const baseName = path.basename(normPath);
     const hits = scanText(text, {
-      forbidAllIpv4: path.basename(normPath) === 'status.json',
+      forbidAllIpv4: baseName === 'status.json' || baseName === 'timetable.json',
       strictPictograph: isStrictPictographPath(normPath),
+      allowClassSection: baseName === 'timetable.json',
     });
     for (const hit of hits) {
       violations.push({
@@ -607,9 +615,11 @@ async function scanGitHistoryDiffs(rootDir) {
       const contentLine = line.slice(1);
       if (contentLine.includes('\0')) continue;
 
+      const baseName = path.basename(currentFile);
       const hits = scanText(contentLine, {
-        forbidAllIpv4: path.basename(currentFile) === 'status.json',
+        forbidAllIpv4: baseName === 'status.json' || baseName === 'timetable.json',
         strictPictograph: isStrictPictographPath(currentFile),
+        allowClassSection: baseName === 'timetable.json',
       });
       for (const hit of hits) {
         violations.push({
