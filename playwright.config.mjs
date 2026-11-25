@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { defineConfig, devices } from '@playwright/test';
 
-const DEFAULT_BASE_URL = 'http://127.0.0.1:4173/bakalari-status/';
+const DEFAULT_BASE_URL = 'http://127.0.0.1:4173/';
 
 function normalizeBaseUrl(rawUrl) {
   const trimmed = (rawUrl ?? '').trim();

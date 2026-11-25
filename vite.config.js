@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 const ROOT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const STATUS_JSON_PATH = path.join(ROOT_DIR, 'data', 'status.json');
-const BASE_PATH = '/bakalari-status/';
+const BASE_PATH = '/';
 
 function statusDataPlugin() {
   return {
@@ -14,7 +14,7 @@ function statusDataPlugin() {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const reqPath = (req.url || '').split('?')[0];
-        if (reqPath === `${BASE_PATH}data/status.json` && req.method === 'GET') {
+        if (reqPath === '/data/status.json' && req.method === 'GET') {
           try {
             const payload = fs.readFileSync(STATUS_JSON_PATH, 'utf8');
             res.statusCode = 200;
@@ -24,23 +24,6 @@ function statusDataPlugin() {
           } catch {
             res.statusCode = 404;
             res.end('status.json not found');
-          }
-          return;
-        }
-        next();
-      });
-    },
-    configurePreviewServer(server) {
-      server.middlewares.use((req, res, next) => {
-        const reqPath = (req.url || '').split('?')[0];
-        if (reqPath === '/bakalari-status' && (req.method === 'GET' || req.method === 'HEAD')) {
-          try {
-            const html = fs.readFileSync(path.join(ROOT_DIR, 'dist', 'index.html'), 'utf8');
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'text/html; charset=utf-8');
-            res.end(req.method === 'HEAD' ? undefined : html);
-          } catch {
-            next();
           }
           return;
         }
