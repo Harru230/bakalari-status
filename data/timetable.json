@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "timezone": "Europe/Prague",
-  "updatedAt": "2026-11-25T10:24:28.012Z",
+  "updatedAt": "2026-11-25T10:29:26.910Z",
   "weeks": {
     "last": {
       "label": "last",
@@ -786,7 +786,7 @@
               "groups": [
                 "4SJ1"
               ],
-              "theme": "",
+              "theme": "Unidad 10",
               "change": null
             },
             {
