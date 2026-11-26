@@ -5,7 +5,13 @@ import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 
 const ROOT_DIR = path.dirname(fileURLToPath(import.meta.url));
-const DATA_FILES = ['status.json', 'timetable.json', 'classes.json'];
+const DATA_FILES = [
+  'status.json',
+  'timetable.json',
+  'classes.json',
+  'timetable.enc.json',
+  'teachers.enc.json',
+];
 const BASE_PATH = '/';
 
 function dataAssetsPlugin() {

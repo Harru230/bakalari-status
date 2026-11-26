@@ -16,6 +16,179 @@
   gap: var(--space-3);
 }
 
+.tt-mode-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.tt-mode-tabs {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.tt-mode-tab {
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+  color: var(--ink-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tt-mode-tab:hover {
+  border-color: var(--border-control);
+  color: var(--ink-primary);
+}
+
+.tt-mode-tab[aria-pressed="true"] {
+  background-color: var(--ink-primary);
+  border-color: var(--ink-primary);
+  color: var(--bg-surface);
+  font-weight: 600;
+}
+
+.tt-lock-btn {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  color: var(--ink-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.tt-lock-btn:hover {
+  border-color: var(--border-control);
+  color: var(--ink-primary);
+}
+
+.tt-lock-panel {
+  padding: var(--space-5) var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-canvas);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 460px;
+}
+
+.tt-lock-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink-primary);
+}
+
+.tt-lock-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ink-secondary);
+  line-height: 1.45;
+}
+
+.tt-lock-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.tt-lock-input {
+  flex: 1 1 200px;
+  min-width: 0;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-control);
+  background-color: var(--bg-surface);
+  color: var(--ink-primary);
+  font-size: 0.875rem;
+}
+
+.tt-lock-submit {
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ink-primary);
+  background-color: var(--ink-primary);
+  color: var(--bg-surface);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tt-lock-submit:disabled {
+  opacity: 0.65;
+}
+
+.tt-lock-error {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #B91C1C;
+  font-weight: 500;
+}
+
+.tt-teacher-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.tt-search-input {
+  width: 100%;
+  max-width: 340px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+  color: var(--ink-primary);
+  font-size: 0.875rem;
+}
+
+.tt-teacher-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 152px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.tt-teacher-pill {
+  font-weight: 500;
+}
+
+.tt-search-empty {
+  font-size: 0.8125rem;
+  color: var(--ink-secondary);
+  padding: 6px 0;
+}
+
+.tt-teacher-heading {
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.tt-atom-class {
+  font-weight: 600;
+  color: var(--ink-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 62%;
+  text-align: left;
+}
+
 .tt-class-bar {
   display: flex;
   align-items: center;

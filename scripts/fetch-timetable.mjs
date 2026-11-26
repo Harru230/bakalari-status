@@ -4,10 +4,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getPragueTodayKey } from '../src/lib/timezone.mjs';
 import { addDaysToDateKey } from '../src/lib/calendar.mjs';
+import { encryptJson } from '../src/lib/vault.mjs';
+import { stripTeacherPersonalData } from '../src/lib/teachers.mjs';
 
 const BASE_URL = 'https://bakalari.oegp.cz';
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUTPUT_PATH = path.join(ROOT_DIR, 'data', 'timetable.json');
+const VAULT_OUTPUT_PATH = path.join(ROOT_DIR, 'data', 'timetable.enc.json');
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
 
 class TransientFetchError extends Error {}
@@ -251,7 +254,7 @@ async function main() {
     const next = await fetchWeek(token, addDaysToDateKey(todayKey, 7), 'next');
     const permanent = await fetchPermanent(token);
 
-    const doc = {
+    const fullDoc = {
       schemaVersion: 1,
       timezone: 'Europe/Prague',
       className: current.className || permanent.className || '',
@@ -259,12 +262,23 @@ async function main() {
       weeks: { last, current, next, permanent },
     };
 
+    const publicDoc = stripTeacherPersonalData(fullDoc);
     const tmpPath = `${OUTPUT_PATH}.tmp`;
-    await fs.writeFile(tmpPath, `${JSON.stringify(doc, null, 2)}\n`, 'utf8');
+    await fs.writeFile(tmpPath, `${JSON.stringify(publicDoc, null, 2)}\n`, 'utf8');
     await fs.rename(tmpPath, OUTPUT_PATH);
 
+    const vaultKey = (process.env.TIMETABLE_VAULT_KEY || '').trim();
+    let vaultMsg = 'vault=skipped';
+    if (vaultKey) {
+      const encEnvelope = await encryptJson(fullDoc, vaultKey);
+      const encTmp = `${VAULT_OUTPUT_PATH}.tmp`;
+      await fs.writeFile(encTmp, `${JSON.stringify(encEnvelope, null, 2)}\n`, 'utf8');
+      await fs.rename(encTmp, VAULT_OUTPUT_PATH);
+      vaultMsg = 'vault=encrypted';
+    }
+
     console.log(
-      `[timetable] updated ${doc.updatedAt} (last=${last.startDate}, current=${current.startDate}, next=${next.startDate})`,
+      `[timetable] updated ${publicDoc.updatedAt} (last=${last.startDate}, current=${current.startDate}, next=${next.startDate}, ${vaultMsg})`,
     );
   } catch (err) {
     if (allowTransient && err instanceof TransientFetchError) {

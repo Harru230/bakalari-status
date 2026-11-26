@@ -2,9 +2,16 @@ import './styles/main.css';
 import './styles/timetable.css';
 import { formatPragueDateTime, getPragueTodayKey } from './lib/timezone.mjs';
 import { formatShortDate } from './lib/calendar.mjs';
+import { decryptJson } from './lib/vault.mjs';
+import { computeTeacherSchedules } from './lib/teachers.mjs';
 
-const TIMETABLE_URL = `${import.meta.env.BASE_URL}data/timetable.json`;
-const CLASSES_URL = `${import.meta.env.BASE_URL}data/classes.json`;
+const BASE = import.meta.env.BASE_URL;
+const TIMETABLE_URL = `${BASE}data/timetable.json`;
+const CLASSES_URL = `${BASE}data/classes.json`;
+const TIMETABLE_VAULT_URL = `${BASE}data/timetable.enc.json`;
+const TEACHERS_VAULT_URL = `${BASE}data/teachers.enc.json`;
+const VAULT_STORAGE_KEY = 'bakalari_vault_key';
+
 const DAY_SHORT = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const LIVE_WEEK_TABS = [
   { key: 'last', label: 'Last week' },
@@ -26,9 +33,18 @@ const state = {
   liveDoc: null,
   classesDoc: null,
   liveClassId: '',
+  mode: 'classes', // 'classes' | 'teachers'
   activeClass: '',
   activeWeek: 'current',
-  viewMode: 'auto', // 'auto' | 'file'
+  viewMode: 'auto',
+  unlocked: false,
+  vaultLiveDoc: null,
+  unlockedClassesMap: null,
+  teacherSchedules: null,
+  activeTeacher: '',
+  teacherQuery: '',
+  unlockError: '',
+  unlockPending: false,
   selectedAtom: null,
 };
 
@@ -42,9 +58,15 @@ function el(tag, className, text) {
   return node;
 }
 
+function getClassOrder() {
+  return Array.isArray(state.classesDoc?.order) && state.classesDoc.order.length > 0
+    ? state.classesDoc.order
+    : FALLBACK_CLASS_ORDER;
+}
+
 function normalizeHashToClass(hash, order) {
   const clean = String(hash || '').replace(/^#/, '').trim().toUpperCase();
-  if (!clean) return null;
+  if (!clean || clean.startsWith('TEACHER-')) return null;
   const compact = clean.replace(/[^0-9A-Z]/g, '');
   for (const cid of order) {
     if (cid.toUpperCase() === clean || cid.replace('.', '').toUpperCase() === compact) {
@@ -52,6 +74,12 @@ function normalizeHashToClass(hash, order) {
     }
   }
   return null;
+}
+
+function parseTeacherHash(hash) {
+  const clean = String(hash || '').replace(/^#/, '').trim();
+  if (!/^teacher-/i.test(clean)) return null;
+  return clean.slice('teacher-'.length).trim().toUpperCase() || null;
 }
 
 function formatDayShortDate(dateKey) {
@@ -65,6 +93,18 @@ function formatWeekRange(week) {
   if (!week?.startDate || !week?.endDate) return 'Permanent schedule';
   const year = week.endDate.slice(0, 4);
   return `${formatShortDate(week.startDate)} to ${formatShortDate(week.endDate)}, ${year}`;
+}
+
+function formatShortTeacherPill(teacher) {
+  if (!teacher.name) return teacher.abbrev;
+  const cleaned = teacher.name
+    .replace(/,\s*Ph\.?D\.?$/i, '')
+    .replace(/\b(?:Mgr|Mag|MMag|Ing|Dr|PhDr|OStR|Bc|MSc|Dipl\.-Soz|DiS|art|et)\b\.?/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const parts = cleaned.split(' ').filter(Boolean);
+  const surname = parts.length > 0 ? parts[parts.length - 1] : teacher.abbrev;
+  return `${surname} (${teacher.abbrev})`;
 }
 
 function classifyChange(atom) {
@@ -100,72 +140,146 @@ function getVisibleHours(week) {
   return hours.slice(firstIdx, lastIdx + 1);
 }
 
+function getActiveLiveDoc() {
+  return state.unlocked && state.vaultLiveDoc?.weeks ? state.vaultLiveDoc : state.liveDoc;
+}
+
+function getClassEntry(classId) {
+  if (state.unlocked && state.unlockedClassesMap?.[classId]) {
+    return state.unlockedClassesMap[classId];
+  }
+  return state.classesDoc?.classes?.[classId] || null;
+}
+
 function isClassAvailable(classId) {
-  if (classId && classId === state.liveClassId && state.liveDoc?.weeks) {
+  if (classId && classId === state.liveClassId && getActiveLiveDoc()?.weeks) {
     return true;
   }
-  const entry = state.classesDoc?.classes?.[classId];
+  const entry = getClassEntry(classId);
   return Boolean(entry && (entry.permanent || entry.file));
 }
 
-function renderLessonDetail(detailEl, selection) {
-  detailEl.replaceChildren();
-  if (!selection) {
-    detailEl.appendChild(
-      el('p', 'tt-detail-empty', 'Select any lesson cell to view room, teacher, topic, and change details.'),
-    );
-    return;
+async function unlockWithPassphrase(passphrase, { persist = true } = {}) {
+  const cleanPass = String(passphrase || '').trim();
+  if (!cleanPass) {
+    throw new Error('Passphrase is required.');
   }
 
-  const { atom, day, hour } = selection;
-  const kind = classifyChange(atom);
+  const [teachersRes, liveVaultRes] = await Promise.all([
+    fetch(TEACHERS_VAULT_URL, { cache: 'no-store' }),
+    fetch(TIMETABLE_VAULT_URL, { cache: 'no-store' }).catch(() => null),
+  ]);
 
-  const head = el('div', 'tt-detail-head');
-  const title = atom.subjectName || atom.subjectAbbrev || (kind === 'removed' ? 'Canceled lesson' : 'Lesson');
-  head.appendChild(el('h3', 'tt-detail-title', title));
-
-  if (atom.change) {
-    const badge = el('span', 'tt-change-badge', atom.change.type || 'Changed');
-    badge.setAttribute('data-kind', kind);
-    head.appendChild(badge);
-  }
-  detailEl.appendChild(head);
-
-  if (atom.change?.description) {
-    const note = el('p', 'tt-detail-change', atom.change.description);
-    note.setAttribute('data-kind', kind);
-    detailEl.appendChild(note);
+  if (!teachersRes.ok) {
+    throw new Error('Encrypted teacher data is unavailable.');
   }
 
-  const dl = el('dl', 'tt-detail-grid');
-  const addRow = (term, val) => {
-    if (!val) return;
-    const item = el('div', 'tt-detail-item');
-    item.append(el('dt', 'tt-detail-term', term), el('dd', 'tt-detail-val', val));
-    dl.appendChild(item);
-  };
+  const teachersEnvelope = await teachersRes.json();
+  const decryptedTeachers = await decryptJson(teachersEnvelope, cleanPass);
 
-  const dayName = DAY_SHORT[day.dayOfWeek] || '';
-  const dayLabel = day.date ? `${dayName} ${formatShortDate(day.date)}`.trim() : dayName;
-  const timeStr = hour
-    ? `${hour.caption}. hour (${hour.beginTime} - ${hour.endTime})`
-    : atom.change?.time || '';
-  addRow('When', timeStr ? `${dayLabel}, ${timeStr}` : dayLabel);
-  addRow('Room', atom.room || '-');
-  addRow(
-    'Teacher',
-    atom.teacherName
-      ? `${atom.teacherName}${atom.teacherAbbrev ? ` (${atom.teacherAbbrev})` : ''}`
-      : atom.teacherAbbrev || '-',
-  );
-  if (atom.groups && atom.groups.length > 0) {
-    addRow('Group', atom.groups.join(', '));
-  }
-  if (atom.theme) {
-    addRow('Topic', atom.theme);
+  let decryptedLive = null;
+  if (liveVaultRes && liveVaultRes.ok) {
+    try {
+      const liveEnvelope = await liveVaultRes.json();
+      decryptedLive = await decryptJson(liveEnvelope, cleanPass);
+    } catch {
+      decryptedLive = null;
+    }
   }
 
-  detailEl.appendChild(dl);
+  const order = Array.isArray(decryptedTeachers.order) && decryptedTeachers.order.length > 0
+    ? decryptedTeachers.order
+    : getClassOrder();
+
+  const classesMap = { ...(decryptedTeachers.classLessonsWithTeachers || {}) };
+  if (decryptedLive?.weeks?.permanent && state.liveClassId && !classesMap[state.liveClassId]) {
+    classesMap[state.liveClassId] = {
+      className: state.liveClassId,
+      updatedAt: decryptedLive.updatedAt || '',
+      permanent: decryptedLive.weeks.permanent,
+    };
+  }
+
+  const schedules = computeTeacherSchedules(classesMap, decryptedTeachers.teachers || {}, order);
+
+  state.unlocked = true;
+  state.vaultLiveDoc = decryptedLive;
+  state.unlockedClassesMap = classesMap;
+  state.teacherSchedules = schedules;
+  state.unlockError = '';
+
+  if (
+    !state.activeTeacher ||
+    !schedules.teachers.some((t) => t.abbrev === state.activeTeacher)
+  ) {
+    state.activeTeacher = schedules.teachers[0]?.abbrev || '';
+  }
+
+  if (persist) {
+    try {
+      localStorage.setItem(VAULT_STORAGE_KEY, cleanPass);
+    } catch {
+      // ignore storage errors
+    }
+  }
+}
+
+function lockVault() {
+  state.unlocked = false;
+  state.vaultLiveDoc = null;
+  state.unlockedClassesMap = null;
+  state.teacherSchedules = null;
+  state.unlockError = '';
+  state.selectedAtom = null;
+  try {
+    localStorage.removeItem(VAULT_STORAGE_KEY);
+  } catch {
+    // ignore storage errors
+  }
+}
+
+function renderModeBar() {
+  const row = el('div', 'tt-mode-bar');
+
+  const modeTabs = el('div', 'tt-mode-tabs');
+  modeTabs.setAttribute('role', 'tablist');
+  modeTabs.setAttribute('aria-label', 'Timetable view');
+
+  for (const m of [
+    { key: 'classes', label: 'Classes' },
+    { key: 'teachers', label: 'Teachers' },
+  ]) {
+    const btn = el('button', 'tt-mode-tab', m.label);
+    btn.type = 'button';
+    btn.setAttribute('data-mode', m.key);
+    btn.setAttribute('aria-pressed', state.mode === m.key ? 'true' : 'false');
+    btn.addEventListener('click', () => {
+      if (state.mode === m.key) return;
+      state.mode = m.key;
+      state.selectedAtom = null;
+      if (m.key === 'classes' && state.activeClass) {
+        history.replaceState(null, '', `#${state.activeClass.replace('.', '')}`);
+      } else if (m.key === 'teachers' && state.unlocked && state.activeTeacher) {
+        history.replaceState(null, '', `#teacher-${state.activeTeacher}`);
+      }
+      render();
+    });
+    modeTabs.appendChild(btn);
+  }
+
+  row.appendChild(modeTabs);
+
+  if (state.unlocked) {
+    const lockBtn = el('button', 'tt-lock-btn', 'Lock');
+    lockBtn.type = 'button';
+    lockBtn.addEventListener('click', () => {
+      lockVault();
+      render();
+    });
+    row.appendChild(lockBtn);
+  }
+
+  return row;
 }
 
 function renderClassBar(order) {
@@ -205,7 +319,80 @@ function renderClassBar(order) {
   return bar;
 }
 
-function renderGridIntoSheet(sheet, week, { isLiveClass }) {
+function renderLessonDetail(detailEl, selection, { teacherMode = false } = {}) {
+  detailEl.replaceChildren();
+  if (!selection) {
+    detailEl.appendChild(
+      el('p', 'tt-detail-empty', 'Select any lesson cell to view room, subject, and schedule details.'),
+    );
+    return;
+  }
+
+  const { atom, day, hour, teacherObj } = selection;
+  const kind = classifyChange(atom);
+
+  const head = el('div', 'tt-detail-head');
+  const baseTitle = atom.subjectName || atom.subjectAbbrev || (kind === 'removed' ? 'Canceled lesson' : 'Lesson');
+  const title = teacherMode && Array.isArray(atom.classes) && atom.classes.length > 0
+    ? `${baseTitle} (${atom.classes.join(', ')})`
+    : baseTitle;
+  head.appendChild(el('h3', 'tt-detail-title', title));
+
+  if (atom.change) {
+    const badge = el('span', 'tt-change-badge', atom.change.type || 'Changed');
+    badge.setAttribute('data-kind', kind);
+    head.appendChild(badge);
+  }
+  detailEl.appendChild(head);
+
+  if (atom.change?.description) {
+    const note = el('p', 'tt-detail-change', atom.change.description);
+    note.setAttribute('data-kind', kind);
+    detailEl.appendChild(note);
+  }
+
+  const dl = el('dl', 'tt-detail-grid');
+  const addRow = (term, val) => {
+    if (!val) return;
+    const item = el('div', 'tt-detail-item');
+    item.append(el('dt', 'tt-detail-term', term), el('dd', 'tt-detail-val', val));
+    dl.appendChild(item);
+  };
+
+  if (teacherMode && Array.isArray(atom.classes) && atom.classes.length > 0) {
+    addRow('Class', atom.classes.join(', '));
+  }
+
+  const dayName = DAY_SHORT[day.dayOfWeek] || '';
+  const dayLabel = day.date ? `${dayName} ${formatShortDate(day.date)}`.trim() : dayName;
+  const timeStr = hour
+    ? `${hour.caption}. hour (${hour.beginTime} - ${hour.endTime})`
+    : atom.change?.time || '';
+  addRow('When', timeStr ? `${dayLabel}, ${timeStr}` : dayLabel);
+  addRow('Room', atom.room || '-');
+
+  const resolvedTeacherName = atom.teacherName || teacherObj?.name || '';
+  const resolvedTeacherAbbrev = atom.teacherAbbrev || teacherObj?.abbrev || '';
+  if (resolvedTeacherName || resolvedTeacherAbbrev) {
+    addRow(
+      'Teacher',
+      resolvedTeacherName
+        ? `${resolvedTeacherName}${resolvedTeacherAbbrev ? ` (${resolvedTeacherAbbrev})` : ''}`
+        : resolvedTeacherAbbrev,
+    );
+  }
+
+  if (atom.groups && atom.groups.length > 0) {
+    addRow('Group', atom.groups.join(', '));
+  }
+  if (atom.theme) {
+    addRow('Topic', atom.theme);
+  }
+
+  detailEl.appendChild(dl);
+}
+
+function renderGridIntoSheet(sheet, week, { isLiveClass, teacherMode = false, teacherObj = null }) {
   const todayKey = getPragueTodayKey(new Date());
   const visibleHours = getVisibleHours(week);
   const hourById = new Map(visibleHours.map((h) => [Number(h.id), h]));
@@ -291,24 +478,40 @@ function renderGridIntoSheet(sheet, week, { isLiveClass }) {
 
           const topMeta = el('div', 'tt-atom-top');
           const grpText = atom.groups && atom.groups.length > 0 ? atom.groups.join(' ') : '';
-          topMeta.append(
-            el('span', 'tt-atom-group', grpText),
-            el('span', 'tt-atom-room', atom.room || ''),
-          );
+          const classLabel = Array.isArray(atom.classes) ? atom.classes.join(', ') : '';
+
+          if (teacherMode) {
+            topMeta.append(
+              el('span', 'tt-atom-class', classLabel),
+              el('span', 'tt-atom-room', atom.room || ''),
+            );
+          } else {
+            topMeta.append(
+              el('span', 'tt-atom-group', grpText),
+              el('span', 'tt-atom-room', atom.room || ''),
+            );
+          }
 
           const subjText = atom.subjectAbbrev || (kind === 'removed' ? 'Canceled' : 'Change');
+          const bottomText = teacherMode ? grpText : (atom.teacherAbbrev || '');
+
           btn.append(
             topMeta,
             el('div', 'tt-atom-subj', subjText),
-            el('div', 'tt-atom-teacher', atom.teacherAbbrev || ''),
+            el('div', 'tt-atom-teacher', bottomText),
           );
 
           btn.addEventListener('click', () => {
-            state.selectedAtom = { atom, day, hour: hourById.get(Number(h.id)) };
+            state.selectedAtom = {
+              atom,
+              day,
+              hour: hourById.get(Number(h.id)),
+              teacherObj,
+            };
             for (const other of allButtons) {
               other.setAttribute('aria-pressed', other === btn ? 'true' : 'false');
             }
-            renderLessonDetail(detailCard, state.selectedAtom);
+            renderLessonDetail(detailCard, state.selectedAtom, { teacherMode });
           });
 
           allButtons.push(btn);
@@ -340,12 +543,12 @@ function renderGridIntoSheet(sheet, week, { isLiveClass }) {
   }
   sheet.appendChild(legend);
 
-  renderLessonDetail(detailCard, state.selectedAtom);
+  renderLessonDetail(detailCard, state.selectedAtom, { teacherMode });
   return detailCard;
 }
 
 function renderFileViewerIntoSheet(sheet, classId, entry) {
-  const fileUrl = `${import.meta.env.BASE_URL}${String(entry.file).replace(/^\/+/, '')}`;
+  const fileUrl = `${BASE}${String(entry.file).replace(/^\/+/, '')}`;
   const wrap = el('div', 'tt-media-wrap');
 
   if (entry.fileType === 'pdf') {
@@ -373,18 +576,173 @@ function renderFileViewerIntoSheet(sheet, classId, entry) {
   sheet.append(wrap, actions);
 }
 
-function render() {
-  const order = Array.isArray(state.classesDoc?.order) && state.classesDoc.order.length > 0
-    ? state.classesDoc.order
-    : FALLBACK_CLASS_ORDER;
+function renderLockedTeachersView(sheet) {
+  const panel = el('div', 'tt-lock-panel');
+  panel.append(
+    el('h2', 'tt-lock-title', 'Teacher timetables'),
+    el(
+      'p',
+      'tt-lock-desc',
+      'Enter the school passphrase to unlock teacher timetables locally in your browser.',
+    ),
+  );
 
+  const form = el('form', 'tt-lock-form');
+  const input = document.createElement('input');
+  input.type = 'password';
+  input.className = 'tt-lock-input';
+  input.placeholder = 'Passphrase';
+  input.autocomplete = 'current-password';
+  input.setAttribute('aria-label', 'Passphrase');
+  input.required = true;
+  input.disabled = state.unlockPending;
+
+  const submitBtn = el('button', 'tt-lock-submit', state.unlockPending ? 'Unlocking...' : 'Unlock');
+  submitBtn.type = 'submit';
+  submitBtn.disabled = state.unlockPending;
+
+  form.append(input, submitBtn);
+  panel.appendChild(form);
+
+  const errorEl = el('p', 'tt-lock-error', state.unlockError || '');
+  errorEl.setAttribute('role', 'alert');
+  if (!state.unlockError) errorEl.hidden = true;
+  panel.appendChild(errorEl);
+
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const pass = input.value.trim();
+    if (!pass || state.unlockPending) return;
+    state.unlockPending = true;
+    state.unlockError = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Unlocking...';
+
+    try {
+      await unlockWithPassphrase(pass, { persist: true });
+      state.unlockPending = false;
+      if (state.activeTeacher) {
+        history.replaceState(null, '', `#teacher-${state.activeTeacher}`);
+      }
+      render();
+    } catch {
+      state.unlockPending = false;
+      state.unlockError = 'Incorrect passphrase.';
+      errorEl.textContent = state.unlockError;
+      errorEl.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Unlock';
+      input.focus();
+      input.select();
+    }
+  });
+
+  sheet.appendChild(panel);
+}
+
+function renderTeachersView(sheet) {
+  if (!state.unlocked || !state.teacherSchedules) {
+    renderLockedTeachersView(sheet);
+    return null;
+  }
+
+  const { hours, teachers } = state.teacherSchedules;
+  if (!teachers || teachers.length === 0) {
+    sheet.appendChild(el('div', 'tt-empty-class', 'No teacher timetables available.'));
+    return null;
+  }
+
+  const controls = el('div', 'tt-teacher-controls');
+  const searchInput = document.createElement('input');
+  searchInput.type = 'search';
+  searchInput.className = 'tt-search-input';
+  searchInput.placeholder = 'Search teacher by name or code...';
+  searchInput.setAttribute('aria-label', 'Search teacher');
+  searchInput.value = state.teacherQuery;
+
+  const pillBox = el('div', 'tt-teacher-bar');
+  pillBox.setAttribute('role', 'navigation');
+  pillBox.setAttribute('aria-label', 'Select teacher');
+
+  const populatePills = () => {
+    pillBox.replaceChildren();
+    const q = state.teacherQuery.trim().toLowerCase();
+    const filtered = q
+      ? teachers.filter((t) => {
+          const hay = `${t.name} ${t.abbrev} ${(t.subjects || []).join(' ')} ${t.homeroom || ''}`.toLowerCase();
+          return hay.includes(q);
+        })
+      : teachers;
+
+    if (filtered.length === 0) {
+      pillBox.appendChild(el('span', 'tt-search-empty', 'No matching teachers.'));
+      return;
+    }
+
+    for (const t of filtered) {
+      const btn = el('button', 'tt-class-pill tt-teacher-pill', formatShortTeacherPill(t));
+      btn.type = 'button';
+      btn.setAttribute('data-teacher', t.abbrev);
+      btn.setAttribute('aria-pressed', state.activeTeacher === t.abbrev ? 'true' : 'false');
+      btn.addEventListener('click', () => {
+        if (state.activeTeacher === t.abbrev) return;
+        state.activeTeacher = t.abbrev;
+        state.selectedAtom = null;
+        history.replaceState(null, '', `#teacher-${t.abbrev}`);
+        render();
+      });
+      pillBox.appendChild(btn);
+    }
+  };
+
+  searchInput.addEventListener('input', () => {
+    state.teacherQuery = searchInput.value;
+    populatePills();
+  });
+
+  populatePills();
+  controls.append(searchInput, pillBox);
+  sheet.appendChild(controls);
+
+  const selected = teachers.find((t) => t.abbrev === state.activeTeacher) || teachers[0];
+  state.activeTeacher = selected.abbrev;
+
+  const infoParts = [
+    selected.name ? `${selected.name} (${selected.abbrev})` : selected.abbrev,
+    selected.homeroom ? `Homeroom ${selected.homeroom}` : '',
+    `${selected.lessonCount} lessons/week`,
+  ].filter(Boolean);
+
+  const topBar = el('div', 'tt-toolbar');
+  topBar.appendChild(el('p', 'tt-range tt-teacher-heading', infoParts.join(' · ')));
+  if (selected.subjects && selected.subjects.length > 0) {
+    topBar.appendChild(el('p', 'tt-range', `Subjects: ${selected.subjects.join(', ')}`));
+  }
+  sheet.appendChild(topBar);
+
+  const teacherWeek = {
+    label: 'permanent',
+    hours,
+    days: selected.days,
+  };
+
+  return renderGridIntoSheet(sheet, teacherWeek, {
+    isLiveClass: false,
+    teacherMode: true,
+    teacherObj: selected,
+  });
+}
+
+function render() {
+  const order = getClassOrder();
   if (!state.activeClass) {
     state.activeClass = state.liveClassId || order[0] || '';
   }
 
-  if (updatedEl && state.liveDoc?.updatedAt) {
+  const liveDoc = getActiveLiveDoc();
+  if (updatedEl && liveDoc?.updatedAt) {
     try {
-      updatedEl.textContent = `Updated ${formatPragueDateTime(state.liveDoc.updatedAt)} | Daily sync at 06:00`;
+      updatedEl.textContent = `Updated ${formatPragueDateTime(liveDoc.updatedAt)} | Daily sync at 06:00`;
     } catch {
       // keep default
     }
@@ -394,14 +752,26 @@ function render() {
 
   const sheet = el('section', 'tt-sheet');
   sheet.setAttribute('aria-label', 'Weekly timetable');
+  sheet.appendChild(renderModeBar());
+
+  if (state.mode === 'teachers') {
+    const detailCard = renderTeachersView(sheet);
+    if (detailCard) {
+      rootEl.append(sheet, detailCard);
+    } else {
+      rootEl.appendChild(sheet);
+    }
+    return;
+  }
+
   sheet.appendChild(renderClassBar(order));
 
-  const isLive = Boolean(state.liveClassId && state.activeClass === state.liveClassId && state.liveDoc?.weeks);
+  const isLive = Boolean(state.liveClassId && state.activeClass === state.liveClassId && liveDoc?.weeks);
 
   if (isLive) {
-    const availableTabs = LIVE_WEEK_TABS.filter((t) => Boolean(state.liveDoc.weeks[t.key]));
-    const activeWeekKey = state.liveDoc.weeks[state.activeWeek] ? state.activeWeek : 'current';
-    const week = state.liveDoc.weeks[activeWeekKey] || state.liveDoc.weeks.current;
+    const availableTabs = LIVE_WEEK_TABS.filter((t) => Boolean(liveDoc.weeks[t.key]));
+    const activeWeekKey = liveDoc.weeks[state.activeWeek] ? state.activeWeek : 'current';
+    const week = liveDoc.weeks[activeWeekKey] || liveDoc.weeks.current;
 
     const topBar = el('div', 'tt-toolbar');
     const tabs = el('nav', 'tt-week-tabs');
@@ -430,7 +800,7 @@ function render() {
     return;
   }
 
-  const entry = state.classesDoc?.classes?.[state.activeClass];
+  const entry = getClassEntry(state.activeClass);
   if (!entry || (!entry.permanent && !entry.file)) {
     const topBar = el('div', 'tt-toolbar');
     topBar.appendChild(el('p', 'tt-range', `${state.activeClass} · Permanent schedule`));
@@ -507,20 +877,47 @@ async function init() {
     state.liveDoc = ttData;
     state.classesDoc = clsData;
 
-    const order = Array.isArray(clsData?.order) && clsData.order.length > 0
-      ? clsData.order
-      : FALLBACK_CLASS_ORDER;
-
-    // Infer live class from timetable.json className (or fallback to 4th grade first section)
+    const order = getClassOrder();
     const fallbackLive = order.find((c) => c.startsWith('4.')) || order[0] || '';
     state.liveClassId = ttData.className || fallbackLive;
 
-    const fromHash = normalizeHashToClass(window.location.hash, order);
-    state.activeClass = fromHash || state.liveClassId;
+    const teacherHash = parseTeacherHash(window.location.hash);
+    const classHash = normalizeHashToClass(window.location.hash, order);
+
+    if (teacherHash) {
+      state.mode = 'teachers';
+      state.activeTeacher = teacherHash;
+      state.activeClass = state.liveClassId;
+    } else {
+      state.activeClass = classHash || state.liveClassId;
+    }
+
+    let savedKey = '';
+    try {
+      savedKey = localStorage.getItem(VAULT_STORAGE_KEY) || '';
+    } catch {
+      savedKey = '';
+    }
+    if (savedKey) {
+      try {
+        await unlockWithPassphrase(savedKey, { persist: false });
+      } catch {
+        lockVault();
+      }
+    }
 
     window.addEventListener('hashchange', () => {
-      const nextClass = normalizeHashToClass(window.location.hash, order);
-      if (nextClass && nextClass !== state.activeClass) {
+      const nextTeacher = parseTeacherHash(window.location.hash);
+      if (nextTeacher) {
+        state.mode = 'teachers';
+        state.activeTeacher = nextTeacher;
+        state.selectedAtom = null;
+        render();
+        return;
+      }
+      const nextClass = normalizeHashToClass(window.location.hash, getClassOrder());
+      if (nextClass) {
+        state.mode = 'classes';
         state.activeClass = nextClass;
         state.selectedAtom = null;
         render();

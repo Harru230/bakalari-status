@@ -36,6 +36,7 @@ jobs:
         env:
           TIMETABLE_LOGIN: ${{ secrets.TIMETABLE_LOGIN }}
           TIMETABLE_KEY: ${{ secrets.TIMETABLE_KEY }}
+          TIMETABLE_VAULT_KEY: ${{ secrets.TIMETABLE_VAULT_KEY }}
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
             node scripts/fetch-timetable.mjs --allow-transient-error
@@ -45,10 +46,10 @@ jobs:
 
       - name: Commit updated timetable snapshot
         run: |
-          if ! git diff --quiet -- data/timetable.json; then
+          if ! git diff --quiet -- data/timetable.json data/timetable.enc.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/timetable.json
+            git add data/timetable.json data/timetable.enc.json
             git commit -m "chore(data): update daily timetable snapshot"
             git pull --rebase --autostash origin main
             git push origin main

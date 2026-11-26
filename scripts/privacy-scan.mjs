@@ -181,6 +181,37 @@ const EMBEDDED_CRED_RE = new RegExp(
   'i',
 );
 
+const ENCRYPTED_VAULT_FILES = new Set(['timetable.enc.json', 'teachers.enc.json']);
+const VAULT_ALLOWED_KEYS = new Set(['v', 'alg', 'kdf', 'iter', 'salt', 'iv', 'ct']);
+
+function maskEncryptedVaultJson(text) {
+  try {
+    const parsed = JSON.parse(text);
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return text;
+    const keys = Object.keys(parsed);
+    if (
+      keys.every((k) => VAULT_ALLOWED_KEYS.has(k)) &&
+      parsed.v === 1 &&
+      parsed.alg === 'AES-256-GCM' &&
+      typeof parsed.salt === 'string' &&
+      typeof parsed.iv === 'string' &&
+      typeof parsed.ct === 'string'
+    ) {
+      return JSON.stringify({ ...parsed, salt: '<b64>', iv: '<b64>', ct: '<b64>' });
+    }
+  } catch {
+    // fall through to raw text scan
+  }
+  return text;
+}
+
+function maskEncryptedVaultDiffLine(line) {
+  if (/^\s*"(?:salt|iv|ct)"\s*:\s*"[A-Za-z0-9+/=]+"/.test(line)) {
+    return line.replace(/"[A-Za-z0-9+/=]+"$/, '"<b64>"');
+  }
+  return line;
+}
+
 function testFresh(regex, line) {
   regex.lastIndex = 0;
   return regex.test(line);
@@ -325,10 +356,12 @@ export async function scanDirectory(dirPath, options = {}) {
       const buf = await fsp.readFile(fullPath);
       if (isBinaryBuffer(buf)) continue;
 
-      const text = buf.toString('utf8');
+      const rawText = buf.toString('utf8');
       const baseName = path.basename(relPath);
       const isStatusJson = baseName === 'status.json';
       const isTimetableDataJson = baseName === 'timetable.json' || baseName === 'classes.json';
+      const isEncryptedVault = ENCRYPTED_VAULT_FILES.has(baseName);
+      const text = isEncryptedVault ? maskEncryptedVaultJson(rawText) : rawText;
       const hits = scanText(text, {
         forbidAllIpv4: forbidAllIpv4OnStatusJson && (isStatusJson || isTimetableDataJson),
         strictPictograph,
@@ -399,9 +432,11 @@ async function scanTrackedFiles(rootDir) {
     const buf = await fsp.readFile(absPath);
     if (isBinaryBuffer(buf)) continue;
 
-    const text = buf.toString('utf8');
+    const rawText = buf.toString('utf8');
     const baseName = path.basename(normPath);
     const isTimetableDataJson = baseName === 'timetable.json' || baseName === 'classes.json';
+    const isEncryptedVault = ENCRYPTED_VAULT_FILES.has(baseName);
+    const text = isEncryptedVault ? maskEncryptedVaultJson(rawText) : rawText;
     const hits = scanText(text, {
       forbidAllIpv4: baseName === 'status.json' || isTimetableDataJson,
       strictPictograph: isStrictPictographPath(normPath),
@@ -618,7 +653,9 @@ async function scanGitHistoryDiffs(rootDir) {
 
       const baseName = path.basename(currentFile);
       const isTimetableDataJson = baseName === 'timetable.json' || baseName === 'classes.json';
-      const hits = scanText(contentLine, {
+      const isEncryptedVault = ENCRYPTED_VAULT_FILES.has(baseName);
+      const lineToScan = isEncryptedVault ? maskEncryptedVaultDiffLine(contentLine) : contentLine;
+      const hits = scanText(lineToScan, {
         forbidAllIpv4: baseName === 'status.json' || isTimetableDataJson,
         strictPictograph: isStrictPictographPath(currentFile),
         allowClassSection: isTimetableDataJson,

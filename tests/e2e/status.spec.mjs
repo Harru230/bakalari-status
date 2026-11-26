@@ -54,14 +54,72 @@ test.describe('Bakalari Status Calendar & Timetable', () => {
     await page.locator('.tt-week-tab[data-week="current"]').click();
     await expect(page.locator('.tt-week-tab[data-week="current"]')).toHaveAttribute('aria-pressed', 'true');
 
-    // Verify class selector from 6th to 1st grade works cleanly
+    // Verify class selector from 6th to 1st grade works cleanly and displays lessons publicly without teacher data
     const classPills = page.locator('.tt-class-pill');
     expect(await classPills.count()).toBeGreaterThanOrEqual(16);
     await expect(classPills.first()).toHaveText('6.A');
     await expect(classPills.last()).toHaveText('1.C');
 
-    await classPills.first().click();
-    await expect(classPills.first()).toHaveAttribute('aria-pressed', 'true');
+    // Public JSON files must never expose teacher names or abbreviations
+    const [ttData, clsData] = await Promise.all([
+      page.evaluate(async () => (await fetch('/data/timetable.json')).json()),
+      page.evaluate(async () => (await fetch('/data/classes.json')).json()),
+    ]);
+    for (const week of Object.values(ttData.weeks || {})) {
+      for (const day of week.days || []) {
+        for (const atom of day.atoms || []) {
+          expect(atom.teacherAbbrev).toBe('');
+          expect(atom.teacherName).toBe('');
+        }
+      }
+    }
+    expect(Object.keys(clsData.classes || {}).length).toBe(16);
+    for (const clsEntry of Object.values(clsData.classes || {})) {
+      for (const day of clsEntry.permanent?.days || []) {
+        for (const atom of day.atoms || []) {
+          expect(atom.teacherAbbrev).toBe('');
+          expect(atom.teacherName).toBe('');
+        }
+      }
+    }
+
+    // Switch to 6.B and verify grid renders lessons publicly
+    await page.locator('.tt-class-pill[data-class="6.B"]').click();
+    await expect(page.locator('.tt-class-pill[data-class="6.B"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.tt-atom').first()).toBeVisible();
+    await page.locator('.tt-atom').first().click();
+    await expect(page.locator('.tt-detail-title')).toBeVisible();
+    await expect(page.locator('.tt-detail-term', { hasText: 'Teacher' })).toHaveCount(0);
+
+    // Switch to Teachers tab -> locked prompt appears -> wrong passphrase rejected
+    await page.locator('.tt-mode-tab[data-mode="teachers"]').click();
+    await expect(page.locator('.tt-lock-form')).toBeVisible();
+    await page.locator('.tt-lock-input').fill('wrong-passphrase-123');
+    await page.locator('.tt-lock-submit').click();
+    await expect(page.locator('.tt-lock-error')).toBeVisible();
+    await expect(page.locator('.tt-lock-error')).toContainText('Incorrect passphrase');
+
+    const vaultPass = process.env.TEST_VAULT_KEY || '';
+    if (vaultPass) {
+      await page.locator('.tt-lock-input').fill(vaultPass);
+      await page.locator('.tt-lock-submit').click();
+      await expect(page.locator('.tt-teacher-bar')).toBeVisible();
+      const teacherPills = page.locator('.tt-teacher-pill');
+      expect(await teacherPills.count()).toBeGreaterThanOrEqual(25);
+
+      await page.locator('.tt-search-input').fill('FAR');
+      await expect(page.locator('.tt-teacher-pill[data-teacher="FAR"]')).toBeVisible();
+      await page.locator('.tt-teacher-pill[data-teacher="FAR"]').click();
+      await expect(page.locator('.tt-teacher-heading')).toContainText('FAR');
+      await page.locator('.tt-atom').first().click();
+      await expect(page.locator('.tt-detail-term', { hasText: 'Class' })).toBeVisible();
+
+      await page.locator('.tt-lock-btn').click();
+      await expect(page.locator('.tt-lock-form')).toBeVisible();
+    }
+
+    // Return to Classes mode for final detail & overflow check
+    await page.locator('.tt-mode-tab[data-mode="classes"]').click();
     await page.locator('.tt-class-pill[data-available="true"]').first().click();
 
     // Click a lesson cell and check details card updates

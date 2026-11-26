@@ -16,6 +16,8 @@
     "backfill": "node scripts/backfill.mjs",
     "import:classes": "node scripts/import-classes.mjs",
     "publish:classes": "node scripts/import-classes.mjs --publish",
+    "build:vault": "node scripts/build-school-vault.mjs",
+    "rotate:passphrase": "node scripts/build-school-vault.mjs --rotate",
     "test:privacy": "node scripts/privacy-scan.mjs",
     "test:e2e": "playwright test"
   },
