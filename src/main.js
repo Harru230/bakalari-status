@@ -253,7 +253,7 @@ function renderDetailContent(liveEl, doc, grid, selectedDateKey) {
   liveEl.appendChild(dl);
 
   const matchingRecent = Array.isArray(doc.recentChecks)
-    ? doc.recentChecks.filter((item) => item && item.date === dayCell.dateKey).slice(0, 12)
+    ? doc.recentChecks.filter((item) => item && item.date === dayCell.dateKey).slice(0, 24)
     : [];
 
   if (matchingRecent.length > 0) {

@@ -28,3 +28,4 @@ imports/
 tmp/
 *.tmp
 .agents
+worker/.wrangler/
