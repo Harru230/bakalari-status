@@ -44,13 +44,25 @@ test.describe('Bakalari Status Calendar & Timetable', () => {
     await expect(page.locator('h1')).toHaveText('Timetable');
     await expect(page.locator('.tt-table')).toBeVisible();
 
-    // Switch between Last week, Next week, This week
+    // Switch between Last week, Next week, Permanent, This week
     await page.locator('.tt-week-tab[data-week="last"]').click();
     await expect(page.locator('.tt-week-tab[data-week="last"]')).toHaveAttribute('aria-pressed', 'true');
     await page.locator('.tt-week-tab[data-week="next"]').click();
     await expect(page.locator('.tt-week-tab[data-week="next"]')).toHaveAttribute('aria-pressed', 'true');
+    await page.locator('.tt-week-tab[data-week="permanent"]').click();
+    await expect(page.locator('.tt-week-tab[data-week="permanent"]')).toHaveAttribute('aria-pressed', 'true');
     await page.locator('.tt-week-tab[data-week="current"]').click();
     await expect(page.locator('.tt-week-tab[data-week="current"]')).toHaveAttribute('aria-pressed', 'true');
+
+    // Verify class selector from 6th to 1st grade works cleanly
+    const classPills = page.locator('.tt-class-pill');
+    expect(await classPills.count()).toBeGreaterThanOrEqual(16);
+    await expect(classPills.first()).toHaveText('6.A');
+    await expect(classPills.last()).toHaveText('1.C');
+
+    await classPills.first().click();
+    await expect(classPills.first()).toHaveAttribute('aria-pressed', 'true');
+    await page.locator('.tt-class-pill[data-available="true"]').first().click();
 
     // Click a lesson cell and check details card updates
     const firstLesson = page.locator('.tt-atom').first();

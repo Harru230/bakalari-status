@@ -328,11 +328,11 @@ export async function scanDirectory(dirPath, options = {}) {
       const text = buf.toString('utf8');
       const baseName = path.basename(relPath);
       const isStatusJson = baseName === 'status.json';
-      const isTimetableJson = baseName === 'timetable.json';
+      const isTimetableDataJson = baseName === 'timetable.json' || baseName === 'classes.json';
       const hits = scanText(text, {
-        forbidAllIpv4: forbidAllIpv4OnStatusJson && (isStatusJson || isTimetableJson),
+        forbidAllIpv4: forbidAllIpv4OnStatusJson && (isStatusJson || isTimetableDataJson),
         strictPictograph,
-        allowClassSection: isTimetableJson,
+        allowClassSection: isTimetableDataJson,
       });
       for (const hit of hits) {
         violations.push({
@@ -401,10 +401,11 @@ async function scanTrackedFiles(rootDir) {
 
     const text = buf.toString('utf8');
     const baseName = path.basename(normPath);
+    const isTimetableDataJson = baseName === 'timetable.json' || baseName === 'classes.json';
     const hits = scanText(text, {
-      forbidAllIpv4: baseName === 'status.json' || baseName === 'timetable.json',
+      forbidAllIpv4: baseName === 'status.json' || isTimetableDataJson,
       strictPictograph: isStrictPictographPath(normPath),
-      allowClassSection: baseName === 'timetable.json',
+      allowClassSection: isTimetableDataJson,
     });
     for (const hit of hits) {
       violations.push({
@@ -616,10 +617,11 @@ async function scanGitHistoryDiffs(rootDir) {
       if (contentLine.includes('\0')) continue;
 
       const baseName = path.basename(currentFile);
+      const isTimetableDataJson = baseName === 'timetable.json' || baseName === 'classes.json';
       const hits = scanText(contentLine, {
-        forbidAllIpv4: baseName === 'status.json' || baseName === 'timetable.json',
+        forbidAllIpv4: baseName === 'status.json' || isTimetableDataJson,
         strictPictograph: isStrictPictographPath(currentFile),
-        allowClassSection: baseName === 'timetable.json',
+        allowClassSection: isTimetableDataJson,
       });
       for (const hit of hits) {
         violations.push({

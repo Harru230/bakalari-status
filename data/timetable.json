@@ -1,10 +1,12 @@
 {
   "schemaVersion": 1,
   "timezone": "Europe/Prague",
-  "updatedAt": "2026-11-26T13:22:02.471Z",
+  "className": "4.A",
+  "updatedAt": "2026-11-26T14:01:27.277Z",
   "weeks": {
     "last": {
       "label": "last",
+      "className": "4.A",
       "startDate": "2026-11-16",
       "endDate": "2026-11-20",
       "hours": [
@@ -439,6 +441,7 @@
     },
     "current": {
       "label": "current",
+      "className": "4.A",
       "startDate": "2026-11-23",
       "endDate": "2026-11-27",
       "hours": [
@@ -1055,6 +1058,7 @@
     },
     "next": {
       "label": "next",
+      "className": "4.A",
       "startDate": "2026-11-30",
       "endDate": "2026-12-04",
       "hours": [
@@ -1708,6 +1712,605 @@
                 "typeAbbrev": "",
                 "typeName": ""
               }
+            }
+          ]
+        }
+      ]
+    },
+    "permanent": {
+      "label": "permanent",
+      "className": "4.A",
+      "startDate": "",
+      "endDate": "",
+      "hours": [
+        {
+          "id": 1,
+          "caption": "0",
+          "beginTime": "7:45",
+          "endTime": "8:30"
+        },
+        {
+          "id": 2,
+          "caption": "1",
+          "beginTime": "8:30",
+          "endTime": "9:15"
+        },
+        {
+          "id": 3,
+          "caption": "2",
+          "beginTime": "9:25",
+          "endTime": "10:10"
+        },
+        {
+          "id": 4,
+          "caption": "3",
+          "beginTime": "10:25",
+          "endTime": "11:10"
+        },
+        {
+          "id": 5,
+          "caption": "4",
+          "beginTime": "11:20",
+          "endTime": "12:05"
+        },
+        {
+          "id": 6,
+          "caption": "5",
+          "beginTime": "12:10",
+          "endTime": "12:55"
+        },
+        {
+          "id": 7,
+          "caption": "6",
+          "beginTime": "13:00",
+          "endTime": "13:45"
+        },
+        {
+          "id": 8,
+          "caption": "7",
+          "beginTime": "13:50",
+          "endTime": "14:35"
+        },
+        {
+          "id": 9,
+          "caption": "8",
+          "beginTime": "14:40",
+          "endTime": "15:25"
+        },
+        {
+          "id": 10,
+          "caption": "9",
+          "beginTime": "15:30",
+          "endTime": "16:15"
+        },
+        {
+          "id": 11,
+          "caption": "10",
+          "beginTime": "16:20",
+          "endTime": "17:05"
+        }
+      ],
+      "days": [
+        {
+          "date": "",
+          "dayOfWeek": 1,
+          "dayType": "WorkDay",
+          "dayDescription": "",
+          "atoms": [
+            {
+              "hourId": 2,
+              "subjectAbbrev": "M",
+              "subjectName": "Matematika",
+              "teacherAbbrev": "STI",
+              "teacherName": "Mag. Gernot Stinglmayr",
+              "room": "101",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 3,
+              "subjectAbbrev": "AJ",
+              "subjectName": "Anglický jazyk",
+              "teacherAbbrev": "SAJ",
+              "teacherName": "Dr. Mathias Sajovitz",
+              "room": "206",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 4,
+              "subjectAbbrev": "SJ",
+              "subjectName": "Španělský jazyk",
+              "teacherAbbrev": "OMA",
+              "teacherName": "Mag. Christoph Oman",
+              "room": "E14",
+              "groups": [
+                "4SJ1"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 5,
+              "subjectAbbrev": "CH",
+              "subjectName": "Chemie",
+              "teacherAbbrev": "KUT",
+              "teacherName": "Mgr. Marcela Kutílková",
+              "room": "205",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 6,
+              "subjectAbbrev": "D",
+              "subjectName": "Dějepis",
+              "teacherAbbrev": "FAR",
+              "teacherName": "Mag. Martin Farkas",
+              "room": "204",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 8,
+              "subjectAbbrev": "CJL",
+              "subjectName": "Český jazyk a literatura",
+              "teacherAbbrev": "AHM",
+              "teacherName": "Mgr. Ivana Ahmed",
+              "room": "201",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 9,
+              "subjectAbbrev": "OSZ",
+              "subjectName": "Občanský a společenskovědní základ",
+              "teacherAbbrev": "BOC",
+              "teacherName": "Mgr. Jiří Bochez",
+              "room": "112",
+              "groups": [],
+              "theme": "",
+              "change": null
+            }
+          ]
+        },
+        {
+          "date": "",
+          "dayOfWeek": 2,
+          "dayType": "WorkDay",
+          "dayDescription": "",
+          "atoms": [
+            {
+              "hourId": 2,
+              "subjectAbbrev": "NJ",
+              "subjectName": "Německý jazyk",
+              "teacherAbbrev": "KAL",
+              "teacherName": "Mag. René Kallinger",
+              "room": "109",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 3,
+              "subjectAbbrev": "Tv",
+              "subjectName": "Tělesná výchova",
+              "teacherAbbrev": "LUK",
+              "teacherName": "Mgr. David Lukeš",
+              "room": "TURN",
+              "groups": [
+                "4TVK"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 3,
+              "subjectAbbrev": "Tv",
+              "subjectName": "Tělesná výchova",
+              "teacherAbbrev": "PRI",
+              "teacherName": "Mgr. Jana Přibylová",
+              "room": "",
+              "groups": [
+                "4TKa"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 4,
+              "subjectAbbrev": "Tv",
+              "subjectName": "Tělesná výchova",
+              "teacherAbbrev": "LUK",
+              "teacherName": "Mgr. David Lukeš",
+              "room": "TURN",
+              "groups": [
+                "4TVK"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 4,
+              "subjectAbbrev": "Tv",
+              "subjectName": "Tělesná výchova",
+              "teacherAbbrev": "PRI",
+              "teacherName": "Mgr. Jana Přibylová",
+              "room": "",
+              "groups": [
+                "4TKa"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 5,
+              "subjectAbbrev": "M",
+              "subjectName": "Matematika",
+              "teacherAbbrev": "STI",
+              "teacherName": "Mag. Gernot Stinglmayr",
+              "room": "101",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 6,
+              "subjectAbbrev": "G",
+              "subjectName": "Geografie",
+              "teacherAbbrev": "STI",
+              "teacherName": "Mag. Gernot Stinglmayr",
+              "room": "101",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 7,
+              "subjectAbbrev": "AJ",
+              "subjectName": "Anglický jazyk",
+              "teacherAbbrev": "SAJ",
+              "teacherName": "Dr. Mathias Sajovitz",
+              "room": "209",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 9,
+              "subjectAbbrev": "SPSV",
+              "subjectName": "Svět práce a společenské vědy",
+              "teacherAbbrev": "SCHI",
+              "teacherName": "Mag. Paul Schinninger",
+              "room": "106",
+              "groups": [],
+              "theme": "",
+              "change": null
+            }
+          ]
+        },
+        {
+          "date": "",
+          "dayOfWeek": 3,
+          "dayType": "WorkDay",
+          "dayDescription": "",
+          "atoms": [
+            {
+              "hourId": 2,
+              "subjectAbbrev": "NJ",
+              "subjectName": "Německý jazyk",
+              "teacherAbbrev": "KAL",
+              "teacherName": "Mag. René Kallinger",
+              "room": "206",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 3,
+              "subjectAbbrev": "NJ",
+              "subjectName": "Německý jazyk",
+              "teacherAbbrev": "KAL",
+              "teacherName": "Mag. René Kallinger",
+              "room": "109",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 4,
+              "subjectAbbrev": "M",
+              "subjectName": "Matematika",
+              "teacherAbbrev": "STI",
+              "teacherName": "Mag. Gernot Stinglmayr",
+              "room": "102",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 5,
+              "subjectAbbrev": "SJ",
+              "subjectName": "Španělský jazyk",
+              "teacherAbbrev": "BRH",
+              "teacherName": "Teodoro Brhel",
+              "room": "",
+              "groups": [
+                "4S1a"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 5,
+              "subjectAbbrev": "SJ",
+              "subjectName": "Španělský jazyk",
+              "teacherAbbrev": "OMA",
+              "teacherName": "Mag. Christoph Oman",
+              "room": "209",
+              "groups": [
+                "4SJ1"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 7,
+              "subjectAbbrev": "G",
+              "subjectName": "Geografie",
+              "teacherAbbrev": "STI",
+              "teacherName": "Mag. Gernot Stinglmayr",
+              "room": "105",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 8,
+              "subjectAbbrev": "F",
+              "subjectName": "Fyzika",
+              "teacherAbbrev": "WURA",
+              "teacherName": "Mag. Arnulf Wurzer",
+              "room": "102",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 9,
+              "subjectAbbrev": "CJL",
+              "subjectName": "Český jazyk a literatura",
+              "teacherAbbrev": "AHM",
+              "teacherName": "Mgr. Ivana Ahmed",
+              "room": "110",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 10,
+              "subjectAbbrev": "CH",
+              "subjectName": "Chemie",
+              "teacherAbbrev": "KUT",
+              "teacherName": "Mgr. Marcela Kutílková",
+              "room": "110",
+              "groups": [],
+              "theme": "",
+              "change": null
+            }
+          ]
+        },
+        {
+          "date": "",
+          "dayOfWeek": 4,
+          "dayType": "WorkDay",
+          "dayDescription": "",
+          "atoms": [
+            {
+              "hourId": 2,
+              "subjectAbbrev": "D",
+              "subjectName": "Dějepis",
+              "teacherAbbrev": "FAR",
+              "teacherName": "Mag. Martin Farkas",
+              "room": "206",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 3,
+              "subjectAbbrev": "NJ",
+              "subjectName": "Německý jazyk",
+              "teacherAbbrev": "KAL",
+              "teacherName": "Mag. René Kallinger",
+              "room": "109",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 4,
+              "subjectAbbrev": "NJ",
+              "subjectName": "Německý jazyk",
+              "teacherAbbrev": "KAL",
+              "teacherName": "Mag. René Kallinger",
+              "room": "109",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 5,
+              "subjectAbbrev": "SJ",
+              "subjectName": "Španělský jazyk",
+              "teacherAbbrev": "OMA",
+              "teacherName": "Mag. Christoph Oman",
+              "room": "110",
+              "groups": [
+                "4S1A"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 7,
+              "subjectAbbrev": "CJL",
+              "subjectName": "Český jazyk a literatura",
+              "teacherAbbrev": "AHM",
+              "teacherName": "Mgr. Ivana Ahmed",
+              "room": "106",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 8,
+              "subjectAbbrev": "F",
+              "subjectName": "Fyzika",
+              "teacherAbbrev": "WURA",
+              "teacherName": "Mag. Arnulf Wurzer",
+              "room": "102",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 9,
+              "subjectAbbrev": "NOD",
+              "subjectName": "NPÖSD",
+              "teacherAbbrev": "KRI",
+              "teacherName": "Mag. Stefan Kriechbaumer",
+              "room": "112",
+              "groups": [
+                "NOD1"
+              ],
+              "theme": "",
+              "change": null
+            }
+          ]
+        },
+        {
+          "date": "",
+          "dayOfWeek": 5,
+          "dayType": "WorkDay",
+          "dayDescription": "",
+          "atoms": [
+            {
+              "hourId": 1,
+              "subjectAbbrev": "NPMO",
+              "subjectName": "Mathematika - olympiáda",
+              "teacherAbbrev": "SCHA",
+              "teacherName": "Mag. Jürgen Schachner MSc",
+              "room": "102",
+              "groups": [
+                "NPMO"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 2,
+              "subjectAbbrev": "M",
+              "subjectName": "Matematika",
+              "teacherAbbrev": "STI",
+              "teacherName": "Mag. Gernot Stinglmayr",
+              "room": "102",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 3,
+              "subjectAbbrev": "Tv",
+              "subjectName": "Tělesná výchova",
+              "teacherAbbrev": "LUK",
+              "teacherName": "Mgr. David Lukeš",
+              "room": "TURN",
+              "groups": [
+                "4TMa"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 3,
+              "subjectAbbrev": "IVT",
+              "subjectName": "Informatika a výpočetní technika",
+              "teacherAbbrev": "WURA",
+              "teacherName": "Mag. Arnulf Wurzer",
+              "room": "104",
+              "groups": [
+                "4ITK"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 4,
+              "subjectAbbrev": "Tv",
+              "subjectName": "Tělesná výchova",
+              "teacherAbbrev": "LUK",
+              "teacherName": "Mgr. David Lukeš",
+              "room": "TURN",
+              "groups": [
+                "4TMa"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 4,
+              "subjectAbbrev": "IVT",
+              "subjectName": "Informatika a výpočetní technika",
+              "teacherAbbrev": "WURA",
+              "teacherName": "Mag. Arnulf Wurzer",
+              "room": "104",
+              "groups": [
+                "4ITK"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 5,
+              "subjectAbbrev": "AJ",
+              "subjectName": "Anglický jazyk",
+              "teacherAbbrev": "SAJ",
+              "teacherName": "Dr. Mathias Sajovitz",
+              "room": "210",
+              "groups": [],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 6,
+              "subjectAbbrev": "VO",
+              "subjectName": "Výtvarný obor",
+              "teacherAbbrev": "SAC",
+              "teacherName": "Mgr. Jakub Šach",
+              "room": "208",
+              "groups": [
+                "4VO"
+              ],
+              "theme": "",
+              "change": null
+            },
+            {
+              "hourId": 7,
+              "subjectAbbrev": "VO",
+              "subjectName": "Výtvarný obor",
+              "teacherAbbrev": "SAC",
+              "teacherName": "Mgr. Jakub Šach",
+              "room": "208",
+              "groups": [
+                "4VO"
+              ],
+              "theme": "",
+              "change": null
             }
           ]
         }

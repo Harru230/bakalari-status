@@ -171,15 +171,16 @@ export function normalizeWeekPayload(raw, label) {
     };
   });
 
-  const startDate = days[0]?.date || '';
-  const endDate = days[days.length - 1]?.date || '';
+  const startDate = label === 'permanent' ? '' : days[0]?.date || '';
+  const endDate = label === 'permanent' ? '' : days[days.length - 1]?.date || '';
 
   return {
     label,
+    className: classAbbrevs[0] || '',
     startDate,
     endDate,
     hours,
-    days,
+    days: label === 'permanent' ? days.map((d) => ({ ...d, date: '' })) : days,
   };
 }
 
@@ -218,6 +219,19 @@ async function fetchWeek(token, dateKey, label) {
   return normalizeWeekPayload(raw, label);
 }
 
+async function fetchPermanent(token) {
+  const url = `${BASE_URL}/api/3/timetable/permanent`;
+  const res = await fetchWithRetry(url, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) {
+    throw new Error(`Timetable fetch (permanent) failed with HTTP ${res.status}`);
+  }
+  const raw = JSON.parse(res.text);
+  return normalizeWeekPayload(raw, 'permanent');
+}
+
 async function main() {
   const allowTransient = process.argv.includes('--allow-transient-error');
   const username = (process.env.TIMETABLE_LOGIN || '').trim();
@@ -235,12 +249,14 @@ async function main() {
     const last = await fetchWeek(token, addDaysToDateKey(todayKey, -7), 'last');
     const current = await fetchWeek(token, todayKey, 'current');
     const next = await fetchWeek(token, addDaysToDateKey(todayKey, 7), 'next');
+    const permanent = await fetchPermanent(token);
 
     const doc = {
       schemaVersion: 1,
       timezone: 'Europe/Prague',
+      className: current.className || permanent.className || '',
       updatedAt: new Date().toISOString(),
-      weeks: { last, current, next },
+      weeks: { last, current, next, permanent },
     };
 
     const tmpPath = `${OUTPUT_PATH}.tmp`;

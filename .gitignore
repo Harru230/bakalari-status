@@ -23,7 +23,8 @@ coverage/
 playwright-report/
 test-results/
 
-# Temporary files and local agent metadata
+# Temporary files, local imports, and local agent metadata
+imports/
 tmp/
 *.tmp
 .agents
