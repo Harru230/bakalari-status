@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "timezone": "Europe/Prague",
-  "updatedAt": "2026-11-25T10:29:26.910Z",
+  "updatedAt": "2026-11-26T13:22:02.471Z",
   "weeks": {
     "last": {
       "label": "last",
@@ -786,7 +786,7 @@
               "groups": [
                 "4SJ1"
               ],
-              "theme": "Unidad 10",
+              "theme": "Unidad 10: &quot;ser&quot;, &quot;estar&quot;, &quot;hay&quot; p. 94",
               "change": null
             },
             {
@@ -797,7 +797,7 @@
               "teacherName": "Mag. Gernot Stinglmayr",
               "room": "105",
               "groups": [],
-              "theme": "",
+              "theme": "Klima u Vegetationsyonen Samerika",
               "change": null
             },
             {
@@ -808,7 +808,7 @@
               "teacherName": "Mag. Arnulf Wurzer",
               "room": "102",
               "groups": [],
-              "theme": "",
+              "theme": "Stehende Welle",
               "change": null
             },
             {
@@ -819,7 +819,7 @@
               "teacherName": "Mgr. Ivana Ahmed",
               "room": "110",
               "groups": [],
-              "theme": "",
+              "theme": "Op. tvaroslovi",
               "change": null
             },
             {
@@ -855,7 +855,7 @@
               "teacherName": "Mag. Martin Farkas",
               "room": "206",
               "groups": [],
-              "theme": "",
+              "theme": "Testrückgabe",
               "change": null
             },
             {
@@ -866,7 +866,7 @@
               "teacherName": "Mag. René Kallinger",
               "room": "109",
               "groups": [],
-              "theme": "",
+              "theme": "Meinungsrede (Sport)",
               "change": null
             },
             {
@@ -877,7 +877,7 @@
               "teacherName": "Mag. René Kallinger",
               "room": "109",
               "groups": [],
-              "theme": "",
+              "theme": "Meinungsrede",
               "change": null
             },
             {
@@ -890,7 +890,7 @@
               "groups": [
                 "4S1A"
               ],
-              "theme": "",
+              "theme": "Unidad 10 p. 94, segundo examen de vuelta",
               "change": null
             },
             {
@@ -901,7 +901,7 @@
               "teacherName": "Mgr. Ivana Ahmed",
               "room": "106",
               "groups": [],
-              "theme": "",
+              "theme": "Publicistika",
               "change": null
             },
             {
@@ -912,7 +912,7 @@
               "teacherName": "Mag. Arnulf Wurzer",
               "room": "102",
               "groups": [],
-              "theme": "",
+              "theme": "Rechenaufgaben Stehende Welle bei Musikinstrumenten",
               "change": null
             },
             {
