@@ -13,6 +13,7 @@ const TEACHERS_VAULT_URL = `${BASE}data/teachers.enc.json`;
 const VAULT_STORAGE_KEY = 'bakalari_vault_key';
 
 const DAY_SHORT = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const WEEKDAY_MAP = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5 };
 const LIVE_WEEK_TABS = [
   { key: 'last', label: 'Last week' },
   { key: 'current', label: 'This week' },
@@ -29,6 +30,23 @@ const FALLBACK_CLASS_ORDER = [
   [1, ['A', 'B', 'C']],
 ].flatMap(([g, secs]) => secs.map((s) => `${g}.${s}`));
 
+const mobileMq =
+  typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+    ? window.matchMedia('(max-width: 767px)')
+    : null;
+
+function getPragueWeekday(date = new Date()) {
+  try {
+    const short = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Europe/Prague',
+      weekday: 'short',
+    }).format(date);
+    return WEEKDAY_MAP[short] || 1;
+  } catch {
+    return 1;
+  }
+}
+
 const state = {
   liveDoc: null,
   classesDoc: null,
@@ -37,6 +55,9 @@ const state = {
   activeClass: '',
   activeWeek: 'current',
   viewMode: 'auto',
+  isMobileViewport: mobileMq ? mobileMq.matches : false,
+  mobileLayout: 'day', // 'day' | 'week'
+  activeDayOfWeek: getPragueWeekday(new Date()),
   unlocked: false,
   vaultLiveDoc: null,
   unlockedClassesMap: null,
@@ -238,6 +259,18 @@ function lockVault() {
   }
 }
 
+function isShowingScheduleGrid() {
+  if (state.mode === 'teachers') {
+    return Boolean(state.unlocked && state.teacherSchedules?.teachers?.length);
+  }
+  const liveDoc = getActiveLiveDoc();
+  if (state.liveClassId && state.activeClass === state.liveClassId && liveDoc?.weeks) {
+    return true;
+  }
+  const entry = getClassEntry(state.activeClass);
+  return Boolean(entry?.permanent?.days && entry?.permanent?.hours);
+}
+
 function renderModeBar() {
   const row = el('div', 'tt-mode-bar');
 
@@ -269,6 +302,31 @@ function renderModeBar() {
 
   row.appendChild(modeTabs);
 
+  const actions = el('div', 'tt-mode-actions');
+
+  if (state.isMobileViewport && isShowingScheduleGrid()) {
+    const layoutToggle = el('div', 'tt-layout-toggle');
+    layoutToggle.setAttribute('role', 'group');
+    layoutToggle.setAttribute('aria-label', 'Schedule layout');
+    for (const item of [
+      { key: 'day', label: 'Day' },
+      { key: 'week', label: 'Week' },
+    ]) {
+      const btn = el('button', 'tt-layout-btn', item.label);
+      btn.type = 'button';
+      btn.setAttribute('data-layout', item.key);
+      btn.setAttribute('aria-pressed', state.mobileLayout === item.key ? 'true' : 'false');
+      btn.addEventListener('click', () => {
+        if (state.mobileLayout === item.key) return;
+        state.mobileLayout = item.key;
+        state.selectedAtom = null;
+        render();
+      });
+      layoutToggle.appendChild(btn);
+    }
+    actions.appendChild(layoutToggle);
+  }
+
   if (state.unlocked) {
     const lockBtn = el('button', 'tt-lock-btn', 'Lock');
     lockBtn.type = 'button';
@@ -276,7 +334,11 @@ function renderModeBar() {
       lockVault();
       render();
     });
-    row.appendChild(lockBtn);
+    actions.appendChild(lockBtn);
+  }
+
+  if (actions.childNodes.length > 0) {
+    row.appendChild(actions);
   }
 
   return row;
@@ -392,12 +454,227 @@ function renderLessonDetail(detailEl, selection, { teacherMode = false } = {}) {
   detailEl.appendChild(dl);
 }
 
+function appendLegend(sheet, { isLiveClass, week }) {
+  const legend = el('div', 'tt-legend');
+  const addLeg = (cls, text) => {
+    const item = el('span', 'tt-legend-item');
+    item.append(el('span', `tt-swatch ${cls}`), el('span', null, text));
+    legend.appendChild(item);
+  };
+  addLeg('tt-swatch-regular', 'Regular');
+  if (isLiveClass && week.label !== 'permanent') {
+    addLeg('tt-swatch-changed', 'Changed / Substitution');
+    addLeg('tt-swatch-removed', 'Removed / Canceled');
+  }
+  sheet.appendChild(legend);
+}
+
+function renderDayViewIntoSheet(sheet, week, { isLiveClass, teacherMode = false, teacherObj = null }) {
+  const todayKey = getPragueTodayKey(new Date());
+  const todayDow = getPragueWeekday(new Date());
+  const days = Array.isArray(week?.days) ? week.days : [];
+  const hours = Array.isArray(week?.hours) ? week.hours : [];
+  const hourById = new Map(hours.map((h) => [Number(h.id), h]));
+
+  const dayTabs = el('div', 'tt-day-tabs');
+  dayTabs.setAttribute('role', 'tablist');
+  dayTabs.setAttribute('aria-label', 'Select day');
+
+  const selectedDay =
+    days.find((d) => Number(d.dayOfWeek) === state.activeDayOfWeek) || days[0] || null;
+  if (selectedDay) {
+    state.activeDayOfWeek = Number(selectedDay.dayOfWeek);
+  }
+
+  for (const d of days) {
+    const dow = Number(d.dayOfWeek);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tt-day-tab';
+    btn.setAttribute('data-day', String(dow));
+    btn.setAttribute('aria-pressed', dow === state.activeDayOfWeek ? 'true' : 'false');
+    const isToday = isLiveClass ? d.date === todayKey : dow === todayDow;
+    if (isToday) {
+      btn.setAttribute('data-today', 'true');
+    }
+
+    btn.appendChild(el('span', 'tt-day-tab-name', DAY_SHORT[dow] || ''));
+    if (d.date) {
+      btn.appendChild(el('span', 'tt-day-tab-date', formatDayShortDate(d.date)));
+    }
+    btn.addEventListener('click', () => {
+      if (state.activeDayOfWeek === dow) return;
+      state.activeDayOfWeek = dow;
+      state.selectedAtom = null;
+      render();
+    });
+    dayTabs.appendChild(btn);
+  }
+
+  sheet.appendChild(dayTabs);
+
+  const detailCard = el('section', 'tt-detail-card');
+  detailCard.setAttribute('aria-live', 'polite');
+
+  if (!selectedDay) {
+    sheet.appendChild(el('div', 'tt-empty-class', 'No schedule data available.'));
+    renderLessonDetail(detailCard, null, { teacherMode });
+    return detailCard;
+  }
+
+  const atoms = Array.isArray(selectedDay.atoms) ? selectedDay.atoms : [];
+  const isSpecialDay = selectedDay.dayType && selectedDay.dayType !== 'WorkDay' && atoms.length === 0;
+
+  if (isSpecialDay) {
+    const fallbackLabel =
+      selectedDay.dayType === 'Weekend' && selectedDay.dayOfWeek <= 5
+        ? 'Day off'
+        : selectedDay.dayType === 'Holiday' || selectedDay.dayType === 'Celebration'
+          ? 'Holiday'
+          : selectedDay.dayType;
+    sheet.appendChild(el('div', 'tt-special-banner', selectedDay.dayDescription || fallbackLabel));
+    renderLessonDetail(detailCard, null, { teacherMode });
+    return detailCard;
+  }
+
+  if (atoms.length === 0) {
+    sheet.appendChild(el('div', 'tt-empty-class', 'No lessons scheduled for this day.'));
+    renderLessonDetail(detailCard, null, { teacherMode });
+    return detailCard;
+  }
+
+  const usedIds = new Set(atoms.map((a) => Number(a.hourId)));
+  const firstIdx = hours.findIndex((h) => usedIds.has(Number(h.id)));
+  let lastIdx = -1;
+  for (let i = hours.length - 1; i >= 0; i -= 1) {
+    if (usedIds.has(Number(hours[i].id))) {
+      lastIdx = i;
+      break;
+    }
+  }
+  const dayHours =
+    firstIdx !== -1 && lastIdx !== -1 ? hours.slice(firstIdx, lastIdx + 1) : hours;
+
+  const atomsByHour = new Map();
+  for (const a of atoms) {
+    const hid = Number(a.hourId);
+    if (!atomsByHour.has(hid)) atomsByHour.set(hid, []);
+    atomsByHour.get(hid).push(a);
+  }
+
+  const dayList = el('div', 'tt-day-list');
+  const allButtons = [];
+
+  for (const h of dayHours) {
+    const row = el('div', 'tt-day-row');
+
+    const hourBox = el('div', 'tt-day-hour');
+    hourBox.append(
+      el('div', 'tt-day-hour-num', h.caption),
+      el('div', 'tt-day-hour-time', `${h.beginTime}\n${h.endTime}`),
+    );
+    const timeEl = hourBox.querySelector('.tt-day-hour-time');
+    if (timeEl) {
+      timeEl.replaceChildren(
+        el('div', null, h.beginTime),
+        el('div', null, h.endTime),
+      );
+    }
+    row.appendChild(hourBox);
+
+    const slotAtoms = atomsByHour.get(Number(h.id)) || [];
+    if (slotAtoms.length === 0) {
+      row.appendChild(el('div', 'tt-day-free', 'Free'));
+      dayList.appendChild(row);
+      continue;
+    }
+
+    const lessonsCol = el('div', 'tt-day-lessons');
+    for (const atom of slotAtoms) {
+      const kind = classifyChange(atom);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tt-atom tt-day-card';
+      btn.setAttribute('data-kind', kind);
+      btn.setAttribute('aria-pressed', 'false');
+
+      const main = el('div', 'tt-day-card-main');
+      const subjRow = el('div', 'tt-day-card-subj-row');
+      const subjText = atom.subjectAbbrev || (kind === 'removed' ? 'Canceled' : 'Change');
+      subjRow.appendChild(el('span', 'tt-day-card-subj', subjText));
+      if (!teacherMode && atom.subjectName && atom.subjectName !== subjText) {
+        subjRow.appendChild(el('span', 'tt-day-card-subname', atom.subjectName));
+      }
+      main.appendChild(subjRow);
+
+      const metaParts = [];
+      if (teacherMode) {
+        if (Array.isArray(atom.classes) && atom.classes.length > 0) {
+          metaParts.push(atom.classes.join(', '));
+        }
+        if (Array.isArray(atom.groups) && atom.groups.length > 0) {
+          metaParts.push(atom.groups.join(' '));
+        }
+      } else {
+        if (Array.isArray(atom.groups) && atom.groups.length > 0) {
+          metaParts.push(atom.groups.join(' '));
+        }
+        if (atom.teacherAbbrev) {
+          metaParts.push(atom.teacherAbbrev);
+        }
+      }
+      if (metaParts.length > 0) {
+        main.appendChild(el('div', 'tt-day-card-meta', metaParts.join(' · ')));
+      }
+
+      const side = el('div', 'tt-day-card-side');
+      if (atom.room) {
+        side.appendChild(el('span', 'tt-day-card-room', atom.room));
+      }
+      if (kind !== 'regular') {
+        side.appendChild(
+          el('span', 'tt-day-card-badge', kind === 'removed' ? 'Canceled' : atom.change?.type || 'Changed'),
+        );
+      }
+
+      btn.append(main, side);
+      btn.addEventListener('click', () => {
+        state.selectedAtom = {
+          atom,
+          day: selectedDay,
+          hour: hourById.get(Number(h.id)),
+          teacherObj,
+        };
+        for (const other of allButtons) {
+          other.setAttribute('aria-pressed', other === btn ? 'true' : 'false');
+        }
+        renderLessonDetail(detailCard, state.selectedAtom, { teacherMode });
+      });
+
+      allButtons.push(btn);
+      lessonsCol.appendChild(btn);
+    }
+
+    row.appendChild(lessonsCol);
+    dayList.appendChild(row);
+  }
+
+  sheet.appendChild(dayList);
+  appendLegend(sheet, { isLiveClass, week });
+  renderLessonDetail(detailCard, state.selectedAtom, { teacherMode });
+  return detailCard;
+}
+
 function renderGridIntoSheet(sheet, week, { isLiveClass, teacherMode = false, teacherObj = null }) {
   const todayKey = getPragueTodayKey(new Date());
   const visibleHours = getVisibleHours(week);
   const hourById = new Map(visibleHours.map((h) => [Number(h.id), h]));
 
   const scrollWrap = el('div', 'tt-scroll');
+  scrollWrap.setAttribute('tabindex', '0');
+  scrollWrap.setAttribute('role', 'region');
+  scrollWrap.setAttribute('aria-label', 'Weekly timetable grid');
+
   const table = el('table', 'tt-table');
 
   const thead = document.createElement('thead');
@@ -530,21 +807,16 @@ function renderGridIntoSheet(sheet, week, { isLiveClass, teacherMode = false, te
   scrollWrap.appendChild(table);
   sheet.appendChild(scrollWrap);
 
-  const legend = el('div', 'tt-legend');
-  const addLeg = (cls, text) => {
-    const item = el('span', 'tt-legend-item');
-    item.append(el('span', `tt-swatch ${cls}`), el('span', null, text));
-    legend.appendChild(item);
-  };
-  addLeg('tt-swatch-regular', 'Regular');
-  if (isLiveClass && week.label !== 'permanent') {
-    addLeg('tt-swatch-changed', 'Changed / Substitution');
-    addLeg('tt-swatch-removed', 'Removed / Canceled');
-  }
-  sheet.appendChild(legend);
-
+  appendLegend(sheet, { isLiveClass, week });
   renderLessonDetail(detailCard, state.selectedAtom, { teacherMode });
   return detailCard;
+}
+
+function renderScheduleIntoSheet(sheet, week, opts) {
+  if (state.isMobileViewport && state.mobileLayout === 'day') {
+    return renderDayViewIntoSheet(sheet, week, opts);
+  }
+  return renderGridIntoSheet(sheet, week, opts);
 }
 
 function renderFileViewerIntoSheet(sheet, classId, entry) {
@@ -726,7 +998,7 @@ function renderTeachersView(sheet) {
     days: selected.days,
   };
 
-  return renderGridIntoSheet(sheet, teacherWeek, {
+  return renderScheduleIntoSheet(sheet, teacherWeek, {
     isLiveClass: false,
     teacherMode: true,
     teacherObj: selected,
@@ -795,7 +1067,7 @@ function render() {
     topBar.append(tabs, rangeLabel);
     sheet.appendChild(topBar);
 
-    const detailCard = renderGridIntoSheet(sheet, week, { isLiveClass: true });
+    const detailCard = renderScheduleIntoSheet(sheet, week, { isLiveClass: true });
     rootEl.append(sheet, detailCard);
     return;
   }
@@ -844,7 +1116,7 @@ function render() {
     renderFileViewerIntoSheet(sheet, state.activeClass, entry);
     rootEl.appendChild(sheet);
   } else {
-    const detailCard = renderGridIntoSheet(
+    const detailCard = renderScheduleIntoSheet(
       sheet,
       { ...entry.permanent, label: 'permanent' },
       { isLiveClass: false },
@@ -904,6 +1176,15 @@ async function init() {
       } catch {
         lockVault();
       }
+    }
+
+    if (mobileMq) {
+      mobileMq.addEventListener('change', (ev) => {
+        if (state.isMobileViewport !== ev.matches) {
+          state.isMobileViewport = ev.matches;
+          render();
+        }
+      });
     }
 
     window.addEventListener('hashchange', () => {

@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light dark;
+
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 
@@ -8,9 +10,11 @@
   --bg-surface: #FCFCFD;
   --bg-surface-muted: #FAFAFA;
   --bg-hover: #F4F4F5;
+  --bg-btn-primary-hover: #27272A;
 
   --ink-primary: #18181B;
   --ink-secondary: #52525B;
+  --ink-muted: #A1A1AA;
 
   --border-structural: #D4D4D8;
   --border-subtle: #E4E4E7;
@@ -37,6 +41,18 @@
   --status-unmonitored-icon: #52525B;
   --status-unmonitored-ink: #3F3F46;
 
+  --tt-atom-bg: #FFFFFF;
+  --tt-today-head-bg: #E4E4E7;
+  --tt-today-cell-bg: #EFEFF1;
+  --tt-changed-bg: #FDF2F8;
+  --tt-changed-border: #DB2777;
+  --tt-changed-ink: #831843;
+  --tt-changed-ink-muted: #9D174D;
+  --tt-removed-bg: #FEF2F2;
+  --tt-removed-border: #DC2626;
+  --tt-removed-ink: #991B1B;
+  --tt-error-ink: #B91C1C;
+
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -48,6 +64,57 @@
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-canvas: #09090B;
+    --bg-surface: #111113;
+    --bg-surface-muted: #18181B;
+    --bg-hover: #27272A;
+    --bg-btn-primary-hover: #E4E4E7;
+
+    --ink-primary: #FAFAFA;
+    --ink-secondary: #A1A1AA;
+    --ink-muted: #71717A;
+
+    --border-structural: #27272A;
+    --border-subtle: #232326;
+    --border-control: #52525B;
+    --border-selected: #FAFAFA;
+
+    --status-online-bg: #052E16;
+    --status-online-bg-hover: #064E3B;
+    --status-online-border: #10B981;
+    --status-online-icon: #34D399;
+    --status-online-ink: #D1FAE5;
+    --status-online-ink-muted: #6EE7B7;
+
+    --status-offline-bg: #2A0E12;
+    --status-offline-bg-hover: #450A0A;
+    --status-offline-border: #EF4444;
+    --status-offline-icon: #F87171;
+    --status-offline-ink: #FECACA;
+    --status-offline-ink-muted: #FCA5A5;
+
+    --status-unmonitored-bg: #18181B;
+    --status-unmonitored-bg-hover: #27272A;
+    --status-unmonitored-border: #3F3F46;
+    --status-unmonitored-icon: #A1A1AA;
+    --status-unmonitored-ink: #D4D4D8;
+
+    --tt-atom-bg: #18181B;
+    --tt-today-head-bg: #27272A;
+    --tt-today-cell-bg: #141417;
+    --tt-changed-bg: #3B0E24;
+    --tt-changed-border: #F472B6;
+    --tt-changed-ink: #FCE7F3;
+    --tt-changed-ink-muted: #F9A8D4;
+    --tt-removed-bg: #2E1012;
+    --tt-removed-border: #F87171;
+    --tt-removed-ink: #FECACA;
+    --tt-error-ink: #FCA5A5;
+  }
 }
 
 * {
@@ -123,8 +190,8 @@ button {
 }
 
 .header-btn:hover {
-  background-color: #27272A;
-  border-color: #27272A;
+  background-color: var(--bg-btn-primary-hover);
+  border-color: var(--bg-btn-primary-hover);
 }
 
 .header-btn-secondary {
