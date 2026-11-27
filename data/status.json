@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "target": "https://bakalari.oegp.cz/login",
   "timezone": "Europe/Prague",
-  "generatedAt": "2026-11-27T22:01:00.141Z",
+  "generatedAt": "2026-11-27T23:01:02.977Z",
   "historyStartDate": "2026-09-17",
   "currentStatus": {
     "status": "online",
-    "checkedAt": "2026-11-27T22:01:00.139Z",
+    "checkedAt": "2026-11-27T23:01:02.973Z",
     "httpStatus": 200,
-    "latencyMs": 1197,
+    "latencyMs": 1012,
     "reason": "ok"
   },
   "days": {
@@ -948,9 +948,31 @@
       "sources": [
         "probe"
       ]
+    },
+    "2026-11-28": {
+      "date": "2026-11-28",
+      "status": "online",
+      "checks": 1,
+      "up": 1,
+      "down": 0,
+      "lastCheckedAt": "2026-11-27T23:01:02.973Z",
+      "lastHttpStatus": 200,
+      "lastReason": "ok",
+      "sources": [
+        "probe"
+      ]
     }
   },
   "recentChecks": [
+    {
+      "timestamp": "2026-11-27T23:01:02.973Z",
+      "date": "2026-11-28",
+      "status": "online",
+      "httpStatus": 200,
+      "latencyMs": 1012,
+      "reason": "ok",
+      "source": "probe"
+    },
     {
       "timestamp": "2026-11-27T22:01:00.139Z",
       "date": "2026-11-27",
@@ -2740,15 +2762,6 @@
       "httpStatus": null,
       "latencyMs": null,
       "reason": "timeout",
-      "source": "historical"
-    },
-    {
-      "timestamp": "2026-10-17T01:07:24.000Z",
-      "date": "2026-10-17",
-      "status": "online",
-      "httpStatus": 200,
-      "latencyMs": null,
-      "reason": "ok",
       "source": "historical"
     }
   ]
