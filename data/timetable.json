@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "timezone": "Europe/Prague",
   "className": "4.A",
-  "updatedAt": "2026-11-27T05:01:05.125Z",
+  "updatedAt": "2026-11-27T13:19:24.662Z",
   "weeks": {
     "last": {
       "label": "last",
@@ -949,7 +949,7 @@
               "groups": [
                 "NPMO"
               ],
-              "theme": "",
+              "theme": "Sätze von Vieta",
               "change": null
             },
             {
@@ -960,7 +960,7 @@
               "teacherName": "",
               "room": "102",
               "groups": [],
-              "theme": "",
+              "theme": "Vektoren im Raum",
               "change": null
             },
             {
@@ -973,7 +973,7 @@
               "groups": [
                 "4TMa"
               ],
-              "theme": "",
+              "theme": "viz. kol. Přibylová",
               "change": null
             },
             {
@@ -986,7 +986,7 @@
               "groups": [
                 "4ITK"
               ],
-              "theme": "",
+              "theme": "Tabelle und einfache Seite in HTML",
               "change": null
             },
             {
@@ -999,7 +999,7 @@
               "groups": [
                 "4TMa"
               ],
-              "theme": "",
+              "theme": "viz. kol. Přibylová",
               "change": null
             },
             {
@@ -1012,7 +1012,7 @@
               "groups": [
                 "4ITK"
               ],
-              "theme": "",
+              "theme": "Tabelle und einfache Seite in HTML",
               "change": null
             },
             {
@@ -1023,7 +1023,7 @@
               "teacherName": "",
               "room": "210",
               "groups": [],
-              "theme": "",
+              "theme": "Festavals Presentations",
               "change": null
             },
             {
